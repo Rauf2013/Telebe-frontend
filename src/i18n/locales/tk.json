@@ -40,18 +40,18 @@
       "applications": "Arza",
       "accepted": "Kabul edildi"
     },
-    "trustStrip": "6 ýurt · 6 dil",
+    "trustStrip": "7 ýurt · 7 dil",
     "features": {
       "title": "Näme üçin biz?",
       "subtitle": "Talyplary kabul etmegiň iň möhüm ädimlerini siziň üçin aňsatlaşdyrýarys",
       "eyebrow": "Üstünlikler",
-      "translation": {
-        "title": "Hünärmen terjime",
-        "desc": "Resminamalaryňyz ýurduň resmi diline hünärmen terjimeçiler tarapyndan terjime edilýär."
-      },
       "multiUniversity": {
         "title": "Bir wagtda 5 uniwersitet",
         "desc": "Bir arza bilen bäş dürli uniwersitet we fakultete bir wagtyň özünde dalaşgär bolup bilersiňiz."
+      },
+      "online": {
+        "title": "Doly onlaýn hyzmat",
+        "desc": "Arzalaryňyz we ähli amallaryňyz doly onlaýn — öýden çykman."
       },
       "tracking": {
         "title": "Hakyky wagt yzarlaýyş",
@@ -290,7 +290,7 @@
     "error": "Ýalňyşlyk ýüze çykdy"
   },
   "universities": {
-    "subtitle": "{{u}} uniwersitet · {{f}} fakultet · 6 ýurt",
+    "subtitle": "{{u}} uniwersitet · {{f}} fakultet · 7 ýurt",
     "searchPlaceholder": "Uniwersitet, şäher ýa-da fakultet gözle...",
     "showing": "{{count}} uniwersitet · {{f}} fakultet",
     "noResults": "Gözlege laýyk netije tapylmady.",
@@ -309,9 +309,9 @@
     "valuesTitle": "Gymmatlyklarymyz",
     "valuesSubtitle": "Ähli işlerimizi şu ýörelgeler ugrukdyrýar",
     "value1": { "title": "Açyklyk",  "desc": "Her ädim kabinetiňizde açyk we yzarlap bolýan görnüşde." },
-    "value2": { "title": "Tizlik",   "desc": "Resminama ýüklemekden kabula çenli ortaça 30 gün." },
-    "value3": { "title": "Ynam",     "desc": "Resminamalaryňyz şifrlenýär, diňe ygtyýarly adamlar görýär." },
-    "value4": { "title": "Goldaw",   "desc": "6 dilde goldaw, her tapgyrda ýanyňyzda." },
+    "value2": { "title": "Tizlik",   "desc": "Arzadan kabula çenli 10 gün." },
+    "value3": { "title": "Ynam",     "desc": "Siziň üstünligiňiz — bizim üstünligimizdir." },
+    "value4": { "title": "Goldaw",   "desc": "7 dilde goldaw, her tapgyrda ýanyňyzda." },
     "stat1Label": "goldanýan dil",
     "stat2Label": "ýurt",
     "stat3Label": "hyzmatdaş uniwersitet",
@@ -322,7 +322,7 @@
   "contact": {
     "eyebrow": "Aragatnaşyk",
     "heroTitle": "Soragyňyz bar — biz şu ýerde",
-    "heroDesc": "6 dilde 7/24 goldaw. WhatsApp, email ýa-da gönüden-göni forma arkaly habarlaşyň.",
+    "heroDesc": "7 dilde 7/24 goldaw. WhatsApp, email ýa-da gönüden-göni forma arkaly habarlaşyň.",
     "email": "Email",
     "phone": "Telefon",
     "whatsapp": "WhatsApp",
@@ -340,11 +340,11 @@
     "faq1Q": "Bir wagtda näçe uniwersitete arza berip bilýärin?",
     "faq1A": "Iň köp 5 uniwersitete ýa-da fakultete bir wagtda arza berip bilersiňiz.",
     "faq2Q": "Resminamalarymy haýsy dilde ýüklemeli?",
-    "faq2A": "Öz diliňizde ýükläp bilersiňiz. Toparymyz terjimäni edýär.",
+    "faq2A": "Resminamalary asyl görnüşinde ýüklersiňiz — saýlan uniwersitetiňiziň ýurduna laýyk terjime ediler.",
     "faq3Q": "Kabul netijeleri nähili habar berilýär?",
     "faq3A": "WhatsApp belgiňize we şahsy kabinetiňize awtomatiki habar gelýär.",
     "faq4Q": "Birinji we ikinji tölegiň tapawudy näme?",
-    "faq4A": "Birinji töleg — resminamalary terjime etmek we uniwersitete ibermek üçin. Ikinji töleg — kabul tassyklamasyndan soň şertleri almak üçin."
+    "faq4A": "2-nji töleg — arza beren uniwersitetlerimizden gelen oňyn jogaplaryň we baglanyşyk maglumatlarynyň size habar berilmegi üçin ýerine ýetirilýär. Olaryň arasyndan size laýyk uniwersiteti saýlap, şol ýerde hasaba durmagy tamamlap bilersiňiz."
   },
   "notFound": {
     "title": "Sahypa tapylmady",
@@ -412,7 +412,8 @@
     "kk": "Қазақ",
     "uz": "Oʻzbek",
     "tg": "Тоҷикӣ",
-    "tk": "Türkmen"
+    "tk": "Türkmen",
+    "ky": "Кыргыз"
   },
   "country": {
     "TR": "Türkiýe",
@@ -420,6 +421,7 @@
     "UZ": "Özbegistan",
     "TJ": "Täjigistan",
     "TM": "Türkmenistan",
+    "KG": "Gyrgyzystan",
     "AZ": "Azerbaýjan"
   },
   "city": {
@@ -430,7 +432,8 @@
     "Daşkənd": "Daşkent",
     "Səmərqənd": "Samarkant",
     "Düşənbə": "Duşenbe",
-    "Aşqabad": "Aşgabat"
+    "Aşqabad": "Aşgabat",
+    "Bişkek": "Bişkek"
   },
   "university": {
     "u1": "Stambul Uniwersiteti",
@@ -440,7 +443,8 @@
     "u5": "Daşkent Döwlet Uniwersiteti",
     "u6": "Samarkant Döwlet Uniwersiteti",
     "u7": "Duşenbe Tehniki Uniwersiteti",
-    "u8": "Magtymguly adyndaky Türkmen Döwlet Uniwersiteti"
+    "u8": "Magtymguly adyndaky Türkmen Döwlet Uniwersiteti",
+    "u9": "Gyrgyz Milli Uniwersiteti"
   },
   "faculty": {
     "medicine":                "Lukmançylyk",
@@ -463,6 +467,9 @@
     "energy":                  "Energetika",
     "automotive":              "Awtoulag",
     "turkmen_language":        "Türkmen dili",
-    "geography":               "Geografiýa"
+    "geography":               "Geografiýa",
+    "philosophy":              "Filosofiýa",
+    "kyrgyz_language":         "Gyrgyz dili",
+    "tourism":                 "Syýahatçylyk"
   }
 }

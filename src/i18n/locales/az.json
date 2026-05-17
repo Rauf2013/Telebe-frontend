@@ -40,18 +40,18 @@
       "applications": "Müraciət",
       "accepted": "Qəbul olundu"
     },
-    "trustStrip": "6 ölkə · 6 dil",
+    "trustStrip": "7 ölkə · 7 dil",
     "features": {
       "title": "Niyə biz?",
       "subtitle": "Tələbə qəbulunda ən mühüm addımları sizin üçün asanlaşdırırıq",
       "eyebrow": "Üstünlüklər",
-      "translation": {
-        "title": "Peşəkar tərcümə",
-        "desc": "Sənədləriniz ölkənin rəsmi dilinə peşəkar mütəxəssislər tərəfindən tərcümə edilir."
-      },
       "multiUniversity": {
         "title": "5 universitet eyni anda",
         "desc": "Bir müraciətlə beş fərqli universitet və fakultəyə eyni anda namizəd ola bilərsiniz."
+      },
+      "online": {
+        "title": "Tam onlayn xidmət",
+        "desc": "Müraciətlərinizin və əməliyyatlarınızın tamamilə onlayn olması — evdən çıxmadan."
       },
       "tracking": {
         "title": "Real vaxt izləmə",
@@ -290,7 +290,7 @@
     "error": "Xəta baş verdi"
   },
   "universities": {
-    "subtitle": "{{u}} universitet · {{f}} fakultə · 6 ölkə",
+    "subtitle": "{{u}} universitet · {{f}} fakultə · 7 ölkə",
     "searchPlaceholder": "Universitet, şəhər və ya fakultə axtar...",
     "showing": "{{count}} universitet · {{f}} fakultə",
     "noResults": "Axtarışa uyğun nəticə tapılmadı.",
@@ -309,9 +309,9 @@
     "valuesTitle": "Dəyərlərimiz",
     "valuesSubtitle": "Bütün işlərimizi bu prinsiplər istiqamətləndirir",
     "value1": { "title": "Şəffaflıq", "desc": "Hər addım kabinetinizdə açıq və izlənə bilən şəkildə." },
-    "value2": { "title": "Sürət",     "desc": "Sənədin yüklənməsindən qəbula qədər orta 30 gün." },
-    "value3": { "title": "Etibar",    "desc": "Sənədləriniz şifrələnir, yalnız səlahiyyətli şəxslər görür." },
-    "value4": { "title": "Dəstək",    "desc": "6 dildə dəstək, hər mərhələdə yanınızda." },
+    "value2": { "title": "Sürət",     "desc": "Müraciətinizdən qəbula qədər 10 gün." },
+    "value3": { "title": "Etibar",    "desc": "Sizin uğurunuz bizim nailiyyətimizdir." },
+    "value4": { "title": "Dəstək",    "desc": "7 dildə dəstək, hər mərhələdə yanınızda." },
     "stat1Label": "dəstəklənən dil",
     "stat2Label": "ölkə",
     "stat3Label": "partnyor universitet",
@@ -322,7 +322,7 @@
   "contact": {
     "eyebrow": "Əlaqə",
     "heroTitle": "Sualın varsa — biz buradayıq",
-    "heroDesc": "6 dildə 7/24 dəstək. WhatsApp, email və ya birbaşa forma ilə əlaqə saxla.",
+    "heroDesc": "7 dildə 7/24 dəstək. WhatsApp, email və ya birbaşa forma ilə əlaqə saxla.",
     "email": "Email",
     "phone": "Telefon",
     "whatsapp": "WhatsApp",
@@ -340,11 +340,11 @@
     "faq1Q": "Neçə universitetə eyni anda müraciət edə bilərəm?",
     "faq1A": "Maksimum 5 universitet və ya fakultəyə eyni anda müraciət edə bilərsiniz.",
     "faq2Q": "Sənədlərimi hansı dildə yükləməliyəm?",
-    "faq2A": "Öz dilinizdə yükləyə bilərsiniz. Komandamız tərcüməni aparır.",
+    "faq2A": "Sənədləri orijinal şəkildə yükləyirsiniz — seçdiyiniz universitetin ölkəsinə uyğun tərcümə olunacaq.",
     "faq3Q": "Qəbul nəticələri necə xəbər verilir?",
     "faq3A": "WhatsApp nömrənizə və şəxsi kabinetinizə avtomatik bildiriş gəlir.",
     "faq4Q": "İlk ödəniş və ikinci ödəniş arasındakı fərq nədir?",
-    "faq4A": "İlk ödəniş — sənədlərin tərcüməsi və universitetə göndərilməsi üçündür. İkinci ödəniş — qəbul təsdiqindən sonra şərtləri əldə etmək üçündür."
+    "faq4A": "2-ci ödəniş — müraciət etdiyimiz universitetlərdən müsbət rəylərin və kontakt məlumatların sizə bildirilməsi üçün həyata keçirilir. Bunların arasından sizə uyğun universiteti seçib orada qeydiyyatınızı tamamlaya bilərsiniz."
   },
   "notFound": {
     "title": "Səhifə tapılmadı",
@@ -412,7 +412,8 @@
     "kk": "Қазақ",
     "uz": "Oʻzbek",
     "tg": "Тоҷикӣ",
-    "tk": "Türkmen"
+    "tk": "Türkmen",
+    "ky": "Кыргыз"
   },
   "country": {
     "TR": "Türkiyə",
@@ -420,6 +421,7 @@
     "UZ": "Özbəkistan",
     "TJ": "Tacikistan",
     "TM": "Türkmənistan",
+    "KG": "Qırğızıstan",
     "AZ": "Azərbaycan"
   },
   "city": {
@@ -430,7 +432,8 @@
     "Daşkənd": "Daşkənd",
     "Səmərqənd": "Səmərqənd",
     "Düşənbə": "Düşənbə",
-    "Aşqabad": "Aşqabad"
+    "Aşqabad": "Aşqabad",
+    "Bişkek": "Bişkek"
   },
   "university": {
     "u1": "İstanbul Universiteti",
@@ -440,7 +443,8 @@
     "u5": "Daşkənd Dövlət Universiteti",
     "u6": "Səmərqənd Dövlət Universiteti",
     "u7": "Düşənbə Texniki Universiteti",
-    "u8": "Magtymguly Türkmen Dövlət Universiteti"
+    "u8": "Magtymguly Türkmen Dövlət Universiteti",
+    "u9": "Qırğız Milli Universiteti"
   },
   "faculty": {
     "medicine":                "Tibb",
@@ -463,6 +467,9 @@
     "energy":                  "Energetika",
     "automotive":              "Avtomobilçilik",
     "turkmen_language":        "Türkmen dili",
-    "geography":               "Coğrafiya"
+    "geography":               "Coğrafiya",
+    "philosophy":              "Fəlsəfə",
+    "kyrgyz_language":         "Qırğız dili",
+    "tourism":                 "Turizm"
   }
 }

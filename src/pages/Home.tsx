@@ -462,6 +462,57 @@ function GuestHome() {
       .catch(() => {});
   }, []);
 
+  /* Carousel: rotating sample students */
+  const carouselUsers = [
+    {
+      initial: 'A', name: 'Aysel A.',
+      gradient: 'from-brand-500 to-brand-700',
+      topLabel: 'İstanbul Univ.',
+      items: [
+        { name: 'İstanbul Univ. — Tibb',           statusKey: 'approved',       cls: 'bg-emerald-100 text-emerald-700' },
+        { name: 'Nazarbayev Univ.',                statusKey: 'under_review',   cls: 'bg-cyan-100 text-cyan-700' },
+        { name: 'Daşkənd Dövlət Univ.',            statusKey: 'in_translation', cls: 'bg-indigo-100 text-indigo-700' },
+      ],
+    },
+    {
+      initial: 'R', name: 'Rauf M.',
+      gradient: 'from-indigo-500 to-purple-700',
+      topLabel: 'Al-Farabi KazNU',
+      items: [
+        { name: 'Al-Farabi KazNU — Riyaziyyat',    statusKey: 'approved',       cls: 'bg-emerald-100 text-emerald-700' },
+        { name: 'Səmərqənd Dövlət Univ.',          statusKey: 'under_review',   cls: 'bg-cyan-100 text-cyan-700' },
+        { name: 'Qırğız Milli Univ.',              statusKey: 'in_translation', cls: 'bg-indigo-100 text-indigo-700' },
+      ],
+    },
+    {
+      initial: 'N', name: 'Nigar B.',
+      gradient: 'from-emerald-500 to-teal-700',
+      topLabel: 'Ankara Univ.',
+      items: [
+        { name: 'Ankara Univ. — Hüquq',            statusKey: 'approved',       cls: 'bg-emerald-100 text-emerald-700' },
+        { name: 'Düşənbə Texniki Univ.',           statusKey: 'under_review',   cls: 'bg-cyan-100 text-cyan-700' },
+        { name: 'Magtymguly Türkmen Univ.',        statusKey: 'in_translation', cls: 'bg-indigo-100 text-indigo-700' },
+      ],
+    },
+    {
+      initial: 'E', name: 'Elçin K.',
+      gradient: 'from-orange-500 to-red-600',
+      topLabel: 'Qırğız Milli Univ.',
+      items: [
+        { name: 'Qırğız Milli Univ. — Turizm',     statusKey: 'approved',       cls: 'bg-emerald-100 text-emerald-700' },
+        { name: 'İstanbul Univ.',                  statusKey: 'under_review',   cls: 'bg-cyan-100 text-cyan-700' },
+        { name: 'Al-Farabi KazNU',                 statusKey: 'in_translation', cls: 'bg-indigo-100 text-indigo-700' },
+      ],
+    },
+  ];
+  const [carouselIdx, setCarouselIdx] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => setCarouselIdx(i => (i + 1) % carouselUsers.length), 3500);
+    return () => clearInterval(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const currentUser = carouselUsers[carouselIdx];
+
   return (
     <div>
       {/* HERO */}
@@ -473,8 +524,16 @@ function GuestHome() {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 lg:pt-24 pb-32">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <div className="inline-flex items-center gap-2 bg-white border border-brand-200 px-4 py-1.5 rounded-full text-xs font-semibold mb-6 shadow-sm">
+            <div className="relative">
+              {/* Smiling kids — behind the hero title */}
+              <img
+                src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=900&q=70"
+                alt=""
+                aria-hidden="true"
+                className="absolute -top-6 -left-6 sm:-left-12 w-[440px] max-w-[120%] h-auto rounded-3xl object-cover opacity-15 pointer-events-none select-none -z-10"
+              />
+
+              <div className="inline-flex items-center gap-2 bg-white border border-brand-200 px-4 py-1.5 rounded-full text-xs font-semibold mb-6 shadow-sm relative">
                 <span className="relative flex h-2 w-2">
                   <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
@@ -482,14 +541,14 @@ function GuestHome() {
                 <span className="text-slate-700">{t('home.badge')}</span>
               </div>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 leading-[1.1] tracking-tight">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 leading-[1.1] tracking-tight relative">
                 {t('home.heroTitle')}
               </h1>
-              <p className="mt-6 text-lg text-slate-600 leading-relaxed max-w-xl">
+              <p className="mt-6 text-lg text-slate-600 leading-relaxed max-w-xl relative">
                 {t('home.heroSubtitle')}
               </p>
 
-              <div className="mt-8 flex flex-wrap gap-3">
+              <div className="mt-8 flex flex-wrap gap-3 relative">
                 <Link to="/register" className="btn-primary text-base px-7 py-3.5">
                   {t('home.ctaApply')}
                   <svg className="w-5 h-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -501,7 +560,7 @@ function GuestHome() {
                 </Link>
               </div>
 
-              <div className="mt-10 pt-6 border-t border-slate-200/60">
+              <div className="mt-10 pt-6 border-t border-slate-200/60 relative">
                 <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">
                   {t('home.trustStrip')}
                 </p>
@@ -520,23 +579,19 @@ function GuestHome() {
 
             <div className="relative">
               <div className="relative bg-white rounded-3xl shadow-xl p-8 border border-slate-100">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center text-white text-xl font-bold">
-                    A
+                <div key={currentUser.name} className="flex items-center gap-3 mb-6 animate-[fadeIn_0.4s_ease-out]">
+                  <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${currentUser.gradient} flex items-center justify-center text-white text-xl font-bold transition-colors duration-300`}>
+                    {currentUser.initial}
                   </div>
                   <div>
-                    <p className="font-semibold text-slate-900">Aysel A.</p>
+                    <p className="font-semibold text-slate-900">{currentUser.name}</p>
                     <p className="text-xs text-slate-500">{t('dashboard.student')}</p>
                   </div>
                   <div className="ml-auto w-2 h-2 rounded-full bg-emerald-500" />
                 </div>
 
-                <div className="space-y-3">
-                  {[
-                    { name: 'İstanbul Univ. — Tibb', statusKey: 'approved',     cls: 'bg-emerald-100 text-emerald-700' },
-                    { name: 'Nazarbayev Univ.',       statusKey: 'under_review', cls: 'bg-cyan-100 text-cyan-700' },
-                    { name: 'Ankara Univ.',           statusKey: 'in_translation', cls: 'bg-indigo-100 text-indigo-700' },
-                  ].map((item, i) => (
+                <div key={'items-' + currentUser.name} className="space-y-3 animate-[fadeIn_0.4s_ease-out]">
+                  {currentUser.items.map((item, i) => (
                     <div key={i} className="flex items-center justify-between p-3 bg-slate-50 rounded-xl">
                       <span className="text-sm font-medium text-slate-700 truncate pr-2">{item.name}</span>
                       <span className={`text-xs px-2 py-0.5 rounded-full font-medium whitespace-nowrap ${item.cls}`}>
@@ -545,13 +600,26 @@ function GuestHome() {
                     </div>
                   ))}
                 </div>
+
+                {/* carousel dots */}
+                <div className="mt-5 flex items-center justify-center gap-1.5">
+                  {carouselUsers.map((_, i) => (
+                    <button
+                      key={i}
+                      type="button"
+                      onClick={() => setCarouselIdx(i)}
+                      aria-label={`Slide ${i + 1}`}
+                      className={`h-1.5 rounded-full transition-all ${i === carouselIdx ? 'w-6 bg-brand-600' : 'w-1.5 bg-slate-300 hover:bg-slate-400'}`}
+                    />
+                  ))}
+                </div>
               </div>
 
-              <div className="hidden sm:flex absolute -top-5 -right-5 bg-gradient-to-br from-orange-500 to-red-500 text-white px-5 py-3 rounded-2xl shadow-xl rotate-3 items-center gap-2">
+              <div key={'badge-' + currentUser.name} className="hidden sm:flex absolute -top-5 -right-5 bg-gradient-to-br from-orange-500 to-red-500 text-white px-5 py-3 rounded-2xl shadow-xl rotate-3 items-center gap-2 animate-[fadeIn_0.4s_ease-out]">
                 <span className="text-xl">🎉</span>
                 <div className="leading-tight">
                   <p className="text-sm font-bold">{t('student.status.approved')}</p>
-                  <p className="text-[10px] opacity-90">İstanbul Univ.</p>
+                  <p className="text-[10px] opacity-90">{currentUser.topLabel}</p>
                 </div>
               </div>
             </div>
@@ -570,24 +638,6 @@ function GuestHome() {
             icon={<svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" /></svg>} />
           <StatCard value={accepted} label={t('home.stats.accepted')} accent="from-orange-500 to-red-600"
             icon={<svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>} />
-        </div>
-      </section>
-
-      {/* FEATURES */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-28">
-        <div className="text-center max-w-2xl mx-auto mb-14">
-          <p className="text-sm font-semibold text-brand-600 uppercase tracking-wider">{t('home.features.eyebrow')}</p>
-          <h2 className="mt-3 text-4xl sm:text-5xl font-bold text-slate-900 tracking-tight">
-            {t('home.features.title')}
-          </h2>
-          <p className="mt-4 text-lg text-slate-600">{t('home.features.subtitle')}</p>
-        </div>
-
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <FeatureCard color="brand"   title={t('home.features.translation.title')}     desc={t('home.features.translation.desc')}     icon={<svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" /></svg>} />
-          <FeatureCard color="orange"  title={t('home.features.multiUniversity.title')} desc={t('home.features.multiUniversity.desc')} icon={<svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>} />
-          <FeatureCard color="indigo"  title={t('home.features.tracking.title')}        desc={t('home.features.tracking.desc')}        icon={<svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>} />
-          <FeatureCard color="emerald" title={t('home.features.support.title')}         desc={t('home.features.support.desc')}         icon={<svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>} />
         </div>
       </section>
 
@@ -618,6 +668,24 @@ function GuestHome() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* FEATURES */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-28">
+        <div className="text-center max-w-2xl mx-auto mb-14">
+          <p className="text-sm font-semibold text-brand-600 uppercase tracking-wider">{t('home.features.eyebrow')}</p>
+          <h2 className="mt-3 text-4xl sm:text-5xl font-bold text-slate-900 tracking-tight">
+            {t('home.features.title')}
+          </h2>
+          <p className="mt-4 text-lg text-slate-600">{t('home.features.subtitle')}</p>
+        </div>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <FeatureCard color="orange"  title={t('home.features.multiUniversity.title')} desc={t('home.features.multiUniversity.desc')} icon={<svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>} />
+          <FeatureCard color="brand"   title={t('home.features.online.title')}          desc={t('home.features.online.desc')}          icon={<svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>} />
+          <FeatureCard color="indigo"  title={t('home.features.tracking.title')}        desc={t('home.features.tracking.desc')}        icon={<svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>} />
+          <FeatureCard color="emerald" title={t('home.features.support.title')}         desc={t('home.features.support.desc')}         icon={<svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>} />
         </div>
       </section>
 

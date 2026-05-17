@@ -78,11 +78,11 @@ export default function About() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="grid sm:grid-cols-3 gap-8 text-center">
           <div>
-            <p className="text-5xl font-bold text-brand-700">6</p>
+            <p className="text-5xl font-bold text-brand-700">7</p>
             <p className="mt-2 text-slate-600">{t('about.stat1Label')}</p>
           </div>
           <div>
-            <p className="text-5xl font-bold text-brand-700">6</p>
+            <p className="text-5xl font-bold text-brand-700">7</p>
             <p className="mt-2 text-slate-600">{t('about.stat2Label')}</p>
           </div>
           <div>

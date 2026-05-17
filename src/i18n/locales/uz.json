@@ -40,18 +40,18 @@
       "applications": "Ariza",
       "accepted": "Qabul qilindi"
     },
-    "trustStrip": "6 davlat · 6 til",
+    "trustStrip": "7 davlat · 7 til",
     "features": {
       "title": "Nega biz?",
       "subtitle": "Talabalar qabulidagi muhim qadamlarni siz uchun osonlashtiramiz",
       "eyebrow": "Afzalliklar",
-      "translation": {
-        "title": "Professional tarjima",
-        "desc": "Hujjatlaringiz maqsadli mamlakatning rasmiy tiliga mutaxassis tarjimonlar tomonidan tarjima qilinadi."
-      },
       "multiUniversity": {
         "title": "Bir vaqtda 5 universitet",
         "desc": "Bitta ariza bilan beshta turli universitet va fakultetga bir vaqtning oʻzida nomzod boʻla olasiz."
+      },
+      "online": {
+        "title": "Toʻliq onlayn xizmat",
+        "desc": "Arizalaringiz va barcha amallar toʻliq onlayn — uydan chiqmasdan."
       },
       "tracking": {
         "title": "Real vaqtda kuzatish",
@@ -290,7 +290,7 @@
     "error": "Xatolik yuz berdi"
   },
   "universities": {
-    "subtitle": "{{u}} universitet · {{f}} fakultet · 6 davlat",
+    "subtitle": "{{u}} universitet · {{f}} fakultet · 7 davlat",
     "searchPlaceholder": "Universitet, shahar yoki fakultetni qidiring...",
     "showing": "{{count}} universitet · {{f}} fakultet",
     "noResults": "Qidiruvga mos natija topilmadi.",
@@ -309,9 +309,9 @@
     "valuesTitle": "Qadriyatlarimiz",
     "valuesSubtitle": "Barcha ishlarimizni shu tamoyillar boshqaradi",
     "value1": { "title": "Shaffoflik",  "desc": "Har qadam kabinetingizda ochiq va kuzatish mumkin shaklda." },
-    "value2": { "title": "Tezlik",      "desc": "Hujjat yuklashdan qabulga qadar oʻrtacha 30 kun." },
-    "value3": { "title": "Ishonch",     "desc": "Hujjatlaringiz shifrlanadi, faqat vakolatli shaxslar koʻradi." },
-    "value4": { "title": "Yordam",      "desc": "6 tilda yordam, har bosqichda yoningizda." },
+    "value2": { "title": "Tezlik",      "desc": "Arizadan qabulga qadar 10 kun." },
+    "value3": { "title": "Ishonch",     "desc": "Sizning muvaffaqiyatingiz — bizning yutugʻimiz." },
+    "value4": { "title": "Yordam",      "desc": "7 tilda yordam, har bosqichda yoningizda." },
     "stat1Label": "qoʻllab-quvvatlanadigan til",
     "stat2Label": "davlat",
     "stat3Label": "hamkor universitet",
@@ -322,7 +322,7 @@
   "contact": {
     "eyebrow": "Aloqa",
     "heroTitle": "Savolingiz bor — biz shu yerdamiz",
-    "heroDesc": "6 tilda 7/24 yordam. WhatsApp, email yoki toʻgʻridan-toʻgʻri shakl orqali bogʻlaning.",
+    "heroDesc": "7 tilda 7/24 yordam. WhatsApp, email yoki toʻgʻridan-toʻgʻri shakl orqali bogʻlaning.",
     "email": "Email",
     "phone": "Telefon",
     "whatsapp": "WhatsApp",
@@ -340,11 +340,11 @@
     "faq1Q": "Bir vaqtda nechta universitetga ariza bera olaman?",
     "faq1A": "Eng koʻpi 5 ta universitet yoki fakultetga bir vaqtda ariza bera olasiz.",
     "faq2Q": "Hujjatlarimni qaysi tilda yuklashim kerak?",
-    "faq2A": "Oʻz tilingizda yuklashingiz mumkin. Bizning jamoamiz tarjimani amalga oshiradi.",
+    "faq2A": "Hujjatlarni asl koʻrinishda yuklaysiz — siz tanlagan universitetning davlatiga muvofiq tarjima qilinadi.",
     "faq3Q": "Qabul natijalari qanday xabar qilinadi?",
     "faq3A": "WhatsApp raqamingizga va shaxsiy kabinetingizga avtomatik xabar keladi.",
     "faq4Q": "Birinchi va ikkinchi toʻlovning farqi nima?",
-    "faq4A": "Birinchi toʻlov — hujjatlarni tarjima qilish va universitetga yuborish uchun. Ikkinchi toʻlov — qabul tasdigʻidan keyin shartlarni olish uchun."
+    "faq4A": "2-toʻlov — ariza topshirgan universitetlardan kelgan ijobiy javoblar va aloqa maʼlumotlarini sizga yetkazish uchun amalga oshiriladi. Ular orasidan sizga mos universitetni tanlab, u yerda roʻyxatdan oʻtishni yakunlay olasiz."
   },
   "notFound": {
     "title": "Sahifa topilmadi",
@@ -412,7 +412,8 @@
     "kk": "Қазақ",
     "uz": "Oʻzbek",
     "tg": "Тоҷикӣ",
-    "tk": "Türkmen"
+    "tk": "Türkmen",
+    "ky": "Кыргыз"
   },
   "country": {
     "TR": "Turkiya",
@@ -420,6 +421,7 @@
     "UZ": "Oʻzbekiston",
     "TJ": "Tojikiston",
     "TM": "Turkmaniston",
+    "KG": "Qirgʻiziston",
     "AZ": "Ozarbayjon"
   },
   "city": {
@@ -430,7 +432,8 @@
     "Daşkənd": "Toshkent",
     "Səmərqənd": "Samarqand",
     "Düşənbə": "Dushanbe",
-    "Aşqabad": "Ashxobod"
+    "Aşqabad": "Ashxobod",
+    "Bişkek": "Bishkek"
   },
   "university": {
     "u1": "Istanbul Universiteti",
@@ -440,7 +443,8 @@
     "u5": "Toshkent Davlat Universiteti",
     "u6": "Samarqand Davlat Universiteti",
     "u7": "Dushanbe Texnika Universiteti",
-    "u8": "Magtymguly nomidagi Turkman Davlat Universiteti"
+    "u8": "Magtymguly nomidagi Turkman Davlat Universiteti",
+    "u9": "Qirgʻiz Milliy Universiteti"
   },
   "faculty": {
     "medicine":                "Tibbiyot",
@@ -463,6 +467,9 @@
     "energy":                  "Energetika",
     "automotive":              "Avtomobilsozlik",
     "turkmen_language":        "Turkman tili",
-    "geography":               "Geografiya"
+    "geography":               "Geografiya",
+    "philosophy":              "Falsafa",
+    "kyrgyz_language":         "Qirgʻiz tili",
+    "tourism":                 "Turizm"
   }
 }

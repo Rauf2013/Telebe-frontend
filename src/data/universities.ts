@@ -6,6 +6,7 @@ export const COUNTRIES: Country[] = [
   { code: 'UZ', name: 'Özbəkistan',  flag: 'UZ' },
   { code: 'TJ', name: 'Tacikistan',  flag: 'TJ' },
   { code: 'TM', name: 'Türkmənistan',flag: 'TM' },
+  { code: 'KG', name: 'Qırğızıstan', flag: 'KG' },
   { code: 'AZ', name: 'Azərbaycan',  flag: 'AZ' },
 ];
 
@@ -70,6 +71,14 @@ export const UNIVERSITIES: University[] = [
     faculties: [
       { id: 'u8-f1', key: 'turkmen_language', name: 'Türkmen dili', tuitionFee: 1500 },
       { id: 'u8-f2', key: 'geography',        name: 'Coğrafiya',    tuitionFee: 1700 },
+    ],
+  },
+  {
+    id: 'u9', name: 'Qırğız Milli Universiteti', countryCode: 'KG', city: 'Bişkek',
+    faculties: [
+      { id: 'u9-f1', key: 'philosophy',     name: 'Fəlsəfə',           tuitionFee: 2000 },
+      { id: 'u9-f2', key: 'kyrgyz_language', name: 'Qırğız dili',      tuitionFee: 1600 },
+      { id: 'u9-f3', key: 'tourism',         name: 'Turizm',           tuitionFee: 2300 },
     ],
   },
 ];
