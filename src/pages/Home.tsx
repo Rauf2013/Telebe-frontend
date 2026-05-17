@@ -517,24 +517,7 @@ function GuestHome() {
     <div>
       {/* HERO */}
       <section className="relative overflow-hidden bg-gradient-to-b from-slate-50 to-white">
-        {/* Atmospheric backdrop — smiling kids photo behind the hero title */}
-        <div className="absolute inset-0 -z-10 pointer-events-none select-none">
-          {/* photo of smiling students at a screen — bundled locally for reliability */}
-          <img
-            src="/hero-students.jpg"
-            alt=""
-            aria-hidden="true"
-            className="absolute inset-y-0 left-0 w-full lg:w-[62%] h-full object-cover object-center"
-            loading="eager"
-          />
-
-          {/* readability mask: keeps the title crisp over the photo, fades fully to white on the right where the carousel sits */}
-          <div className="absolute inset-0 bg-gradient-to-r from-white/60 via-white/40 to-white" />
-
-          {/* bottom fade: photo dissolves into the stats section below */}
-          <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-b from-transparent to-white" />
-
-          {/* decorative blurred color circles on top */}
+        <div className="absolute inset-0 -z-10 pointer-events-none">
           <div className="absolute -top-40 -right-40 w-96 h-96 bg-brand-200 rounded-full blur-3xl opacity-30" />
           <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-indigo-200 rounded-full blur-3xl opacity-30" />
         </div>
