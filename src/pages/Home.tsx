@@ -475,7 +475,7 @@ function GuestHome() {
       ],
     },
     {
-      initial: 'R', name: 'Rauf M.',
+      initial: 'L', name: 'Leyla S.',
       gradient: 'from-indigo-500 to-purple-700',
       topLabel: 'Al-Farabi KazNU',
       items: [
@@ -485,7 +485,7 @@ function GuestHome() {
       ],
     },
     {
-      initial: 'N', name: 'Nigar B.',
+      initial: 'T', name: 'Tural H.',
       gradient: 'from-emerald-500 to-teal-700',
       topLabel: 'Ankara Univ.',
       items: [
@@ -495,7 +495,7 @@ function GuestHome() {
       ],
     },
     {
-      initial: 'E', name: 'Elçin K.',
+      initial: 'S', name: 'Səbinə Q.',
       gradient: 'from-orange-500 to-red-600',
       topLabel: 'Qırğız Milli Univ.',
       items: [
@@ -519,27 +519,24 @@ function GuestHome() {
       <section className="relative overflow-hidden bg-gradient-to-b from-slate-50 to-white">
         {/* Atmospheric backdrop — smiling kids photo behind the hero title */}
         <div className="absolute inset-0 -z-10 pointer-events-none select-none">
-          {/* decorative blurred circles */}
-          <div className="absolute -top-40 -right-40 w-96 h-96 bg-brand-200 rounded-full blur-3xl opacity-30" />
-          <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-indigo-200 rounded-full blur-3xl opacity-30" />
-
-          {/* photo of kids smiling at a screen */}
+          {/* photo of smiling students at a screen — bundled locally for reliability */}
           <img
-            src="https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=1600&q=80"
+            src="/hero-students.jpg"
             alt=""
             aria-hidden="true"
-            className="absolute inset-y-0 left-0 w-full lg:w-[68%] h-full object-cover object-center opacity-[0.32]"
+            className="absolute inset-y-0 left-0 w-full lg:w-[62%] h-full object-cover object-center"
             loading="eager"
           />
 
-          {/* warm color wash for atmosphere */}
-          <div className="absolute inset-0 bg-gradient-to-tr from-brand-50/40 via-transparent to-indigo-50/40 mix-blend-multiply" />
-
-          {/* right-side fade: keeps the carousel card on a clean canvas */}
-          <div className="absolute inset-0 bg-gradient-to-r from-white/35 via-white/10 to-white" />
+          {/* readability mask: keeps the title crisp over the photo, fades fully to white on the right where the carousel sits */}
+          <div className="absolute inset-0 bg-gradient-to-r from-white/60 via-white/40 to-white" />
 
           {/* bottom fade: photo dissolves into the stats section below */}
-          <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-b from-transparent via-white/40 to-white" />
+          <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-b from-transparent to-white" />
+
+          {/* decorative blurred color circles on top */}
+          <div className="absolute -top-40 -right-40 w-96 h-96 bg-brand-200 rounded-full blur-3xl opacity-30" />
+          <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-indigo-200 rounded-full blur-3xl opacity-30" />
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 lg:pt-24 pb-32">
