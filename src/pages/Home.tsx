@@ -517,22 +517,34 @@ function GuestHome() {
     <div>
       {/* HERO */}
       <section className="relative overflow-hidden bg-gradient-to-b from-slate-50 to-white">
-        <div className="absolute inset-0 -z-10 pointer-events-none">
+        {/* Atmospheric backdrop — smiling kids photo behind the hero title */}
+        <div className="absolute inset-0 -z-10 pointer-events-none select-none">
+          {/* decorative blurred circles */}
           <div className="absolute -top-40 -right-40 w-96 h-96 bg-brand-200 rounded-full blur-3xl opacity-30" />
           <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-indigo-200 rounded-full blur-3xl opacity-30" />
+
+          {/* photo of kids smiling at a screen */}
+          <img
+            src="https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=1600&q=80"
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-y-0 left-0 w-full lg:w-[68%] h-full object-cover object-center opacity-[0.32]"
+            loading="eager"
+          />
+
+          {/* warm color wash for atmosphere */}
+          <div className="absolute inset-0 bg-gradient-to-tr from-brand-50/40 via-transparent to-indigo-50/40 mix-blend-multiply" />
+
+          {/* right-side fade: keeps the carousel card on a clean canvas */}
+          <div className="absolute inset-0 bg-gradient-to-r from-white/35 via-white/10 to-white" />
+
+          {/* bottom fade: photo dissolves into the stats section below */}
+          <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-b from-transparent via-white/40 to-white" />
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 lg:pt-24 pb-32">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="relative">
-              {/* Smiling kids — behind the hero title */}
-              <img
-                src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=900&q=70"
-                alt=""
-                aria-hidden="true"
-                className="absolute -top-6 -left-6 sm:-left-12 w-[440px] max-w-[120%] h-auto rounded-3xl object-cover opacity-15 pointer-events-none select-none -z-10"
-              />
-
               <div className="inline-flex items-center gap-2 bg-white border border-brand-200 px-4 py-1.5 rounded-full text-xs font-semibold mb-6 shadow-sm relative">
                 <span className="relative flex h-2 w-2">
                   <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping"></span>
