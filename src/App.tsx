@@ -15,6 +15,7 @@ import ModeratorDashboard from './pages/dashboards/ModeratorDashboard';
 import Profile from './pages/Profile';
 import AcceptInvite from './pages/AcceptInvite';
 import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
 import AuthRoute from './components/AuthRoute';
 import { useAuthStore } from './store/authStore';
 import { useAppStore } from './store/applicationStore';
@@ -53,6 +54,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
           <Route path="/invite/:token" element={<AcceptInvite />} />
 
           <Route element={<ProtectedRoute role="student" />}>
