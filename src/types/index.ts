@@ -7,7 +7,11 @@ export interface User {
   role: UserRole;
   phone?: string;
   whatsapp?: string;
+  country?: string;
+  city?: string;
   universityId?: string;
+  emailVerified?: boolean;
+  phoneVerified?: boolean;
   createdAt: string;
 }
 

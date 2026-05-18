@@ -4,7 +4,7 @@ import { useAuthStore } from '../../store/authStore';
 import { useUsersStore, getCachedUser } from '../../store/usersStore';
 import { useAppStore } from '../../store/applicationStore';
 import { api, fileUrl } from '../../api/client';
-import { findFaculty, findUniversity, getFacultyName, getUniversityName, getCityName } from '../../data/universities';
+import { findFaculty, findUniversity, getFacultyName, getUniversityName, getCityName, UNIVERSITIES } from '../../data/universities';
 import DashboardHeader from '../../components/DashboardHeader';
 import ApplicationTimeline from '../../components/ApplicationTimeline';
 import type { Application, User } from '../../types';
@@ -19,7 +19,7 @@ export default function ModeratorDashboard() {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [filter, setFilter] = useState<Filter>('all');
 
-  const [tab, setTab] = useState<'apps' | 'admins'>('apps');
+  const [tab, setTab] = useState<'apps' | 'admins' | 'uni'>('apps');
 
   const filtered = useMemo(() => {
     return apps.filter(a => {
@@ -58,9 +58,15 @@ export default function ModeratorDashboard() {
           }`}>
           {t('moderator.tabMods')}
         </button>
+        <button onClick={() => setTab('uni')}
+          className={`px-4 py-2.5 -mb-px border-b-2 text-sm font-semibold transition ${
+            tab === 'uni' ? 'border-brand-600 text-brand-700' : 'border-transparent text-slate-500 hover:text-slate-700'
+          }`}>
+          {t('moderator.admin.uniInvitesTab')}
+        </button>
       </div>
 
-      {tab === 'admins' ? <AdminsPanel /> : <>
+      {tab === 'admins' ? <AdminsPanel /> : tab === 'uni' ? <UniInvitesPanel /> : <>
 
       {/* Filters */}
       <div className="flex flex-wrap gap-2 mb-4">
@@ -467,5 +473,212 @@ function StatusPill({ status }: { status: string }) {
     <span className={`text-xs px-2 py-1 rounded-full font-medium ${map[status] ?? 'bg-slate-100 text-slate-700'}`}>
       {t(`student.status.${status}`)}
     </span>
+  );
+}
+
+/* =================================================================
+   UNIVERSITY-REP INVITE PANEL
+   Moderator picks a university + candidate email → backend creates
+   a one-time signup link and sends it to the candidate via email.
+   ================================================================= */
+interface UniInvite {
+  token: string; kind: string;
+  note?: string; targetEmail?: string; targetName?: string; universityId?: string;
+  expiresAt: string; usedAt?: string; createdAt: string;
+}
+
+function UniInvitesPanel() {
+  const { t } = useTranslation();
+
+  const [list, setList] = useState<UniInvite[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  // form
+  const [universityId, setUniversityId] = useState(UNIVERSITIES[0]?.id ?? '');
+  const [targetEmail, setTargetEmail] = useState('');
+  const [targetName, setTargetName] = useState('');
+  const [note, setNote] = useState('');
+  const [creating, setCreating] = useState(false);
+  const [justCreated, setJustCreated] = useState<string | null>(null);
+  const [info, setInfo] = useState('');
+  const [err, setErr] = useState('');
+  const [copied, setCopied] = useState(false);
+
+  async function load() {
+    setLoading(true);
+    try {
+      const r = await api<{ invites: UniInvite[] }>('/api/admin/invites?kind=university');
+      setList(r.invites);
+    } catch { /* ignore */ }
+    setLoading(false);
+  }
+  useEffect(() => { load(); }, []);
+
+  async function createInvite() {
+    setErr('');
+    setInfo('');
+    if (!targetEmail || !universityId) { setErr(t('auth.fillAll')); return; }
+    setCreating(true);
+    try {
+      const uni = UNIVERSITIES.find(u => u.id === universityId);
+      const r = await api<{ invite: UniInvite & { link: string } }>('/api/admin/uni-invites', {
+        body: {
+          targetEmail, targetName, universityId,
+          universityName: uni?.name,
+          note,
+        },
+      });
+      setJustCreated(r.invite.token);
+      setInfo(t('moderator.admin.uniInviteSent'));
+      setTargetEmail(''); setTargetName(''); setNote('');
+      await load();
+    } catch (e) {
+      const code = (e as { code?: string }).code;
+      setErr(code === 'missing_fields' ? t('auth.fillAll') : t('common.error'));
+    }
+    setCreating(false);
+  }
+
+  async function revoke(token: string) {
+    if (!confirm(t('moderator.admin.revokeConfirm'))) return;
+    try { await api(`/api/admin/invites/${token}`, { method: 'DELETE' }); } catch {}
+    if (justCreated === token) setJustCreated(null);
+    await load();
+  }
+
+  function inviteUrl(token: string) { return `${window.location.origin}/invite/${token}`; }
+
+  async function copy(text: string) {
+    try { await navigator.clipboard.writeText(text); setCopied(true); setTimeout(() => setCopied(false), 1500); } catch {}
+  }
+
+  const active = list.filter(i => !i.usedAt && new Date(i.expiresAt) > new Date());
+  const used   = list.filter(i => i.usedAt);
+
+  return (
+    <div className="grid lg:grid-cols-3 gap-6">
+      <div className="lg:col-span-2 space-y-5">
+        {/* Active uni invites */}
+        <div>
+          <h2 className="font-bold text-slate-900 mb-3">
+            {t('moderator.admin.uniInvitesActive')} ({active.length})
+          </h2>
+          {loading ? (
+            <div className="card p-6 text-sm text-slate-500">{t('common.loading')}</div>
+          ) : active.length === 0 ? (
+            <div className="card p-6 text-sm text-slate-500">{t('moderator.admin.noActive')}</div>
+          ) : (
+            <div className="space-y-2">
+              {active.map(i => {
+                const uni = i.universityId ? UNIVERSITIES.find(u => u.id === i.universityId) : null;
+                return (
+                  <div key={i.token} className={`card p-4 ${justCreated === i.token ? 'ring-2 ring-brand-400' : ''}`}>
+                    <div className="flex items-start justify-between gap-3 mb-2">
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-semibold text-slate-900 truncate">
+                          {i.targetName ? `${i.targetName} — ` : ''}{i.targetEmail}
+                        </p>
+                        {uni && (
+                          <p className="text-xs text-slate-500 truncate">
+                            🎓 {uni.name} · {uni.city}
+                          </p>
+                        )}
+                        {i.note && <p className="text-xs text-slate-500 mt-1 italic">"{i.note}"</p>}
+                        <p className="text-[11px] text-slate-400 mt-1">
+                          {t('moderator.admin.expiresAt')}: {new Date(i.expiresAt).toLocaleString()}
+                        </p>
+                      </div>
+                      <button onClick={() => revoke(i.token)}
+                              className="text-xs text-red-600 hover:underline flex-shrink-0">
+                        {t('moderator.admin.revoke')}
+                      </button>
+                    </div>
+                    <div className="flex items-center gap-2 bg-slate-50 rounded-lg p-2">
+                      <code className="flex-1 text-[11px] text-slate-700 truncate">{inviteUrl(i.token)}</code>
+                      <button onClick={() => copy(inviteUrl(i.token))}
+                              className="text-xs px-2.5 py-1 bg-brand-600 text-white rounded-md hover:bg-brand-700 transition flex-shrink-0">
+                        {copied ? `✓ ${t('common.copied')}` : t('common.copy')}
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+
+        {/* Used uni invites */}
+        {used.length > 0 && (
+          <div>
+            <h2 className="font-bold text-sm text-slate-500 mb-3">{t('moderator.admin.usedInvites')}</h2>
+            <div className="space-y-2">
+              {used.slice(0, 5).map(i => (
+                <div key={i.token} className="card p-3 opacity-60">
+                  <p className="text-xs text-slate-600">
+                    {i.targetEmail} · {t('moderator.admin.usedAt')}: {i.usedAt && new Date(i.usedAt).toLocaleString()}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* New uni invite form */}
+      <aside className="lg:sticky lg:top-4 self-start">
+        <div className="card p-5 bg-gradient-to-br from-emerald-50 to-teal-50 border-emerald-100">
+          <div className="flex items-center gap-2 mb-3">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-700 text-white flex items-center justify-center text-lg">
+              🎓
+            </div>
+            <div>
+              <h3 className="font-bold text-slate-900">{t('moderator.admin.uniInviteTitle')}</h3>
+              <p className="text-[11px] text-slate-500">{t('moderator.admin.shareWarning')}</p>
+            </div>
+          </div>
+
+          <p className="text-xs text-slate-600 leading-relaxed mb-4">{t('moderator.admin.uniInviteDesc')}</p>
+
+          <div className="space-y-3">
+            <div>
+              <label className="label text-xs">{t('moderator.admin.uniInviteUniversity')}</label>
+              <select className="input text-sm" value={universityId}
+                      onChange={e => setUniversityId(e.target.value)}>
+                {UNIVERSITIES.map(u => (
+                  <option key={u.id} value={u.id}>{u.name} — {u.city}</option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label className="label text-xs">{t('moderator.admin.uniInviteEmail')}</label>
+              <input className="input text-sm" type="email" required
+                     value={targetEmail} onChange={e => setTargetEmail(e.target.value)}
+                     placeholder="rep@uni.edu" />
+            </div>
+            <div>
+              <label className="label text-xs">{t('moderator.admin.uniInviteName')}</label>
+              <input className="input text-sm"
+                     value={targetName} onChange={e => setTargetName(e.target.value)}
+                     placeholder="—" />
+            </div>
+            <div>
+              <label className="label text-xs">{t('moderator.admin.noteLabel')}</label>
+              <input className="input text-sm" placeholder={t('moderator.admin.notePlaceholder')}
+                     value={note} onChange={e => setNote(e.target.value)} />
+            </div>
+
+            {info && <div className="text-xs text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-lg px-3 py-2">{info}</div>}
+            {err  && <div className="text-xs text-red-600   bg-red-50   border border-red-200   rounded-lg px-3 py-2">{err}</div>}
+
+            <button onClick={createInvite} disabled={creating}
+                    className="btn-primary w-full disabled:opacity-50">
+              {creating ? t('moderator.admin.creating') : `🎓 ${t('moderator.admin.uniInviteCreate')}`}
+            </button>
+
+            <p className="text-[10px] text-slate-500 text-center">{t('moderator.admin.linkValidity')}</p>
+          </div>
+        </div>
+      </aside>
+    </div>
   );
 }

@@ -7,7 +7,9 @@ interface AuthState {
   hydrated: boolean;
   init: () => Promise<void>;
   login: (email: string, password: string) => Promise<{ ok: boolean; error?: string }>;
-  register: (data: RegisterData) => Promise<{ ok: boolean; error?: string }>;
+  register: (data: RegisterData) => Promise<{ ok: boolean; error?: string; requiresOtp?: boolean; phone?: string }>;
+  verifyOtp: (phone: string, code: string) => Promise<{ ok: boolean; error?: string }>;
+  resendOtp: (phone: string) => Promise<{ ok: boolean; error?: string }>;
   logout: () => void;
 }
 
@@ -15,10 +17,10 @@ export interface RegisterData {
   email: string;
   password: string;
   fullName: string;
-  role: UserRole;
-  phone?: string;
+  phone: string;
   whatsapp?: string;
-  universityId?: string;
+  country: string;
+  city: string;
 }
 
 const codeMap: Record<string, string> = {
@@ -28,6 +30,10 @@ const codeMap: Record<string, string> = {
   weak_password: 'weakPassword',
   forbidden_role: 'forbiddenRole',
   network_error: 'networkError',
+  invalid_code: 'invalidCode',
+  expired_code: 'expiredCode',
+  too_many_attempts: 'tooManyAttempts',
+  no_pending_registration: 'noPendingRegistration',
 };
 
 export const useAuthStore = create<AuthState>((set) => ({
@@ -59,15 +65,41 @@ export const useAuthStore = create<AuthState>((set) => ({
     }
   },
 
+  // Step 1: Register sends OTP via SMS. Does NOT log the user in yet.
   register: async (data) => {
     try {
-      const { user, token } = await api<{ user: User; token: string }>('/api/auth/register', { body: data });
+      const r = await api<{ ok: boolean; requiresOtp?: boolean; phone?: string }>(
+        '/api/auth/register', { body: data },
+      );
+      return { ok: true, requiresOtp: !!r.requiresOtp, phone: r.phone };
+    } catch (e) {
+      const code = (e as { code?: string }).code;
+      return { ok: false, error: code ? (codeMap[code] ?? 'unknownError') : 'unknownError' };
+    }
+  },
+
+  // Step 2: Verify OTP — this is where the user is actually created server-side and a token returns.
+  verifyOtp: async (phone, code) => {
+    try {
+      const { user, token } = await api<{ user: User; token: string }>('/api/auth/verify-otp', {
+        body: { phone, code },
+      });
       setToken(token);
       set({ user });
       return { ok: true };
     } catch (e) {
-      const code = (e as { code?: string }).code;
-      return { ok: false, error: code ? (codeMap[code] ?? 'unknownError') : 'unknownError' };
+      const errCode = (e as { code?: string }).code;
+      return { ok: false, error: errCode ? (codeMap[errCode] ?? 'unknownError') : 'unknownError' };
+    }
+  },
+
+  resendOtp: async (phone) => {
+    try {
+      await api('/api/auth/resend-otp', { body: { phone } });
+      return { ok: true };
+    } catch (e) {
+      const errCode = (e as { code?: string }).code;
+      return { ok: false, error: errCode ? (codeMap[errCode] ?? 'unknownError') : 'unknownError' };
     }
   },
 
