@@ -607,7 +607,7 @@ function GuestHome() {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                 </svg>
               </div>
-              <h3 className="font-display text-2xl lg:text-3xl font-bold leading-tight">{t('home.features.multiUniversity.title')}</h3>
+              <h3 className="font-display text-2xl lg:text-3xl font-bold leading-tight text-white">{t('home.features.multiUniversity.title')}</h3>
               <p className="mt-4 text-base text-ink-300 leading-relaxed max-w-md">{t('home.features.multiUniversity.desc')}</p>
             </div>
             <div className="relative mt-8 flex items-center gap-2">
@@ -678,7 +678,7 @@ function GuestHome() {
                 <div className="absolute left-0 top-0 w-14 lg:w-[72px] h-14 lg:h-[72px] rounded-2xl bg-white text-ink-900 flex items-center justify-center font-display font-bold text-xl shadow-lift">
                   {String(n).padStart(2, '0')}
                 </div>
-                <h3 className="font-display text-xl lg:text-2xl font-bold pt-2">{t(`home.process.step${n}.title`)}</h3>
+                <h3 className="font-display text-xl lg:text-2xl font-bold pt-2 text-white">{t(`home.process.step${n}.title`)}</h3>
                 <p className="mt-2 text-base text-ink-300 leading-relaxed max-w-xl">{t(`home.process.step${n}.desc`)}</p>
               </li>
             ))}
