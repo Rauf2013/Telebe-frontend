@@ -43,14 +43,14 @@ const KIND_STYLES: Record<Kind, { icon: string; dot: string; bg: string; chip: s
    the same shape. */
 const RAW_ITEMS: FeedItem[] = [
   { initial: 'A', name: 'Aysel A.',  countryCode: 'tr', university: 'İstanbul Universiteti',         kind: 'accepted',   minutesAgo: 3  },
-  { initial: 'R', name: 'Rauf M.',   countryCode: 'kz', university: 'Al-Farabi KazNU',               kind: 'submitted',  minutesAgo: 8  },
-  { initial: 'N', name: 'Nigar B.',  countryCode: 'uz', university: 'Daşkənd Dövlət Universiteti',   kind: 'translated', minutesAgo: 14 },
+  { initial: 'V', name: 'Vüqar R.',  countryCode: 'kz', university: 'Al-Farabi KazNU',               kind: 'submitted',  minutesAgo: 8  },
+  { initial: 'A', name: 'Aytac M.',  countryCode: 'uz', university: 'Daşkənd Dövlət Universiteti',   kind: 'translated', minutesAgo: 14 },
   { initial: 'T', name: 'Tural H.',  countryCode: 'tr', university: 'Ankara Universiteti',           kind: 'accepted',   minutesAgo: 19 },
   { initial: 'L', name: 'Leyla S.',  countryCode: 'kz', university: 'Nazarbayev Universiteti',       kind: 'paid',       minutesAgo: 24 },
-  { initial: 'E', name: 'Elnur K.',  countryCode: 'kg', university: 'Qırğız Milli Universiteti',     kind: 'started',    minutesAgo: 31 },
+  { initial: 'O', name: 'Orxan K.',  countryCode: 'kg', university: 'Qırğız Milli Universiteti',     kind: 'started',    minutesAgo: 31 },
   { initial: 'S', name: 'Səbinə Q.', countryCode: 'tj', university: 'Düşənbə Texniki Univ.',         kind: 'submitted',  minutesAgo: 38 },
-  { initial: 'F', name: 'Fərid Y.',  countryCode: 'tm', university: 'Magtymguly Türkmen DU',         kind: 'translated', minutesAgo: 47 },
-  { initial: 'M', name: 'Mətin V.',  countryCode: 'uz', university: 'Səmərqənd Dövlət Univ.',        kind: 'accepted',   minutesAgo: 55 },
+  { initial: 'C', name: 'Cavid Y.',  countryCode: 'tm', university: 'Magtymguly Türkmen DU',         kind: 'translated', minutesAgo: 47 },
+  { initial: 'N', name: 'Nərmin V.', countryCode: 'uz', university: 'Səmərqənd Dövlət Univ.',        kind: 'accepted',   minutesAgo: 55 },
 ];
 
 export default function ActivityFeed() {
