@@ -47,7 +47,8 @@
       "eyebrow": "Üstünlüklər",
       "multiUniversity": {
         "title": "5 universitet eyni anda",
-        "desc": "Bir müraciətlə beş fərqli universitet və fakultəyə eyni anda namizəd ola bilərsiniz."
+        "desc": "Bir müraciətlə beş fərqli universitet və fakultəyə eyni anda namizəd ola bilərsiniz.",
+        "simul": "eyni anda"
       },
       "online": {
         "title": "Tam onlayn xidmət",
@@ -96,6 +97,13 @@
     "tipStudent": "Sənədləri vaxtında yükləməyi unutmayın. Tərcümə təxminən 2-3 iş günü çəkir.",
     "tipModerator": "Yeni müraciət olduqda sizə bildirim gəlir. Sənədləri yoxlayıb tərcüməni yükləyin.",
     "tipUniversity": "Hər müraciət üçün təhsil haqqı və şərtləri qeyd qutusunda yaza bilərsiniz.",
+    "marquee": {
+      "eyebrow": "Partnyor universitetlərimiz"
+    },
+    "testimonial": {
+      "quote": "Sənədləri yüklədim, bir həftə sonra İstanbul Universitetindən təsdiq gəldi. Bu qədər asan olacağını gözləmirdim — hər mərhələ kabinetdə açıq idi.",
+      "role": "Tibb, İstanbul Universiteti"
+    },
     "feed": {
       "eyebrow": "CANLI · İndi platformada baş verir",
       "live": "Canlı",

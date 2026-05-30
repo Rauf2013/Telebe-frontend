@@ -55,8 +55,9 @@ export default {
         glow:  '0 0 0 1px rgba(13, 148, 136, 0.10), 0 8px 24px -8px rgba(13, 148, 136, 0.25)',
       },
       animation: {
-        'fade-in-up': 'fadeInUp 0.5s ease-out',
+        'fade-in-up':  'fadeInUp 0.5s ease-out',
         'feed-scroll': 'feedScroll 30s linear infinite',
+        'marquee':     'marquee 36s linear infinite',
         'pulse-dot':   'pulseDot 1.8s ease-in-out infinite',
       },
       keyframes: {
@@ -67,6 +68,10 @@ export default {
         feedScroll: {
           '0%':   { transform: 'translateY(0)' },
           '100%': { transform: 'translateY(-50%)' },
+        },
+        marquee: {
+          '0%':   { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
         },
         pulseDot: {
           '0%, 100%': { opacity: '0.6', transform: 'scale(1)' },

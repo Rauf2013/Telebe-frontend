@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useEffect, useState } from 'react';
-import StatCard from '../components/StatCard';
+import { useEffect, useRef, useState } from 'react';
 import ActivityFeed from '../components/ActivityFeed';
 import { UNIVERSITIES, COUNTRIES, findFaculty, findUniversity, getFacultyName, getCountryName, getUniversityName, getCityName } from '../data/universities';
 import { api } from '../api/client';
@@ -448,7 +447,8 @@ function UniversityOverview({ user, apps }: { user: User; apps: Application[] })
 }
 
 /* ====================================================
-   GUEST HOME — marketing
+   GUEST HOME — completely new layout. Center-first, asymmetric,
+   marquee + bento grid + testimonial. Different SHAPE entirely.
    ==================================================== */
 function GuestHome() {
   const { t } = useTranslation();
@@ -463,239 +463,279 @@ function GuestHome() {
       .catch(() => {});
   }, []);
 
-  /* Carousel: rotating sample students */
-  const carouselUsers = [
-    {
-      initial: 'A', name: 'Aysel A.',
-      gradient: 'from-brand-500 to-brand-700',
-      topLabel: 'İstanbul Univ.',
-      items: [
-        { name: 'İstanbul Univ. — Tibb',           statusKey: 'approved',       cls: 'bg-emerald-100 text-emerald-700' },
-        { name: 'Nazarbayev Univ.',                statusKey: 'under_review',   cls: 'bg-cyan-100 text-cyan-700' },
-        { name: 'Daşkənd Dövlət Univ.',            statusKey: 'in_translation', cls: 'bg-indigo-100 text-indigo-700' },
-      ],
-    },
-    {
-      initial: 'L', name: 'Leyla S.',
-      gradient: 'from-indigo-500 to-purple-700',
-      topLabel: 'Al-Farabi KazNU',
-      items: [
-        { name: 'Al-Farabi KazNU — Riyaziyyat',    statusKey: 'approved',       cls: 'bg-emerald-100 text-emerald-700' },
-        { name: 'Səmərqənd Dövlət Univ.',          statusKey: 'under_review',   cls: 'bg-cyan-100 text-cyan-700' },
-        { name: 'Qırğız Milli Univ.',              statusKey: 'in_translation', cls: 'bg-indigo-100 text-indigo-700' },
-      ],
-    },
-    {
-      initial: 'T', name: 'Tural H.',
-      gradient: 'from-emerald-500 to-teal-700',
-      topLabel: 'Ankara Univ.',
-      items: [
-        { name: 'Ankara Univ. — Hüquq',            statusKey: 'approved',       cls: 'bg-emerald-100 text-emerald-700' },
-        { name: 'Düşənbə Texniki Univ.',           statusKey: 'under_review',   cls: 'bg-cyan-100 text-cyan-700' },
-        { name: 'Magtymguly Türkmen Univ.',        statusKey: 'in_translation', cls: 'bg-indigo-100 text-indigo-700' },
-      ],
-    },
-    {
-      initial: 'S', name: 'Səbinə Q.',
-      gradient: 'from-orange-500 to-red-600',
-      topLabel: 'Qırğız Milli Univ.',
-      items: [
-        { name: 'Qırğız Milli Univ. — Turizm',     statusKey: 'approved',       cls: 'bg-emerald-100 text-emerald-700' },
-        { name: 'İstanbul Univ.',                  statusKey: 'under_review',   cls: 'bg-cyan-100 text-cyan-700' },
-        { name: 'Al-Farabi KazNU',                 statusKey: 'in_translation', cls: 'bg-indigo-100 text-indigo-700' },
-      ],
-    },
-  ];
-  const [carouselIdx, setCarouselIdx] = useState(0);
-  useEffect(() => {
-    const id = setInterval(() => setCarouselIdx(i => (i + 1) % carouselUsers.length), 3500);
-    return () => clearInterval(id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  const currentUser = carouselUsers[carouselIdx];
-
   return (
-    <div>
-      {/* HERO — refined: clean grid, one subtle accent, no busy gradient circles */}
-      <section className="relative overflow-hidden bg-white">
-        {/* A single soft top wash — much calmer than the old double blob */}
-        <div className="absolute inset-x-0 top-0 h-[420px] -z-10 bg-gradient-to-b from-brand-50/60 to-transparent pointer-events-none" />
+    <div className="bg-white">
+      {/* =====================================================
+         HERO — center-aligned, oversized typography, no side card.
+         Below the title: a curated trio of recent acceptances.
+         ===================================================== */}
+      <section className="relative overflow-hidden">
+        {/* a radial accent behind the title — very subtle */}
+        <div className="absolute inset-0 -z-10 pointer-events-none">
+          <div className="absolute left-1/2 top-0 -translate-x-1/2 w-[1200px] h-[700px] -translate-y-1/3 bg-gradient-to-b from-brand-100/60 via-brand-50/40 to-transparent rounded-[50%] blur-3xl" />
+          <div className="absolute inset-x-0 top-0 h-px bg-ink-100" />
+        </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 lg:pt-24 pb-28">
-          <div className="grid lg:grid-cols-12 gap-12 items-center">
-            {/* Left — title block. Wider than before, tighter spacing. */}
-            <div className="relative lg:col-span-7">
-              <div className="inline-flex items-center gap-2 bg-white border border-ink-200 px-3 py-1.5 rounded-full text-[11px] font-semibold mb-7 shadow-sm">
-                <span className="relative flex h-1.5 w-1.5">
-                  <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-pulse-dot"></span>
-                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
-                </span>
-                <span className="text-ink-700 uppercase tracking-[0.12em]">{t('home.badge')}</span>
-              </div>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 lg:pt-28 pb-12 text-center">
+          {/* tiny live badge */}
+          <div className="inline-flex items-center gap-2 bg-white border border-ink-200 px-3 py-1.5 rounded-full text-[11px] font-semibold shadow-sm">
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-pulse-dot"></span>
+              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
+            </span>
+            <span className="text-ink-700 uppercase tracking-[0.14em]">{t('home.badge')}</span>
+          </div>
 
-              <h1 className="font-display text-[44px] sm:text-6xl lg:text-[76px] font-bold text-ink-900 leading-[0.98] tracking-[-0.025em]">
-                {t('home.heroTitle')}
-              </h1>
-              <p className="mt-7 text-base lg:text-lg text-ink-700 leading-relaxed max-w-xl">
-                {t('home.heroSubtitle')}
-              </p>
+          {/* MASSIVE display headline */}
+          <h1 className="mt-8 font-display text-[44px] sm:text-7xl lg:text-[92px] xl:text-[104px] font-bold text-ink-900 leading-[0.94] tracking-[-0.035em]">
+            {t('home.heroTitle')}
+          </h1>
 
-              <div className="mt-9 flex flex-wrap gap-3">
-                <Link to="/register" className="btn-primary text-base px-7 py-3.5">
-                  {t('home.ctaApply')}
-                  <svg className="w-4 h-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </Link>
-                <Link to="/universities" className="btn-secondary text-base px-7 py-3.5">
-                  {t('home.ctaExplore')}
-                </Link>
-              </div>
+          <p className="mt-7 text-base lg:text-xl text-ink-600 leading-relaxed max-w-2xl mx-auto">
+            {t('home.heroSubtitle')}
+          </p>
 
-              {/* Country chips — slimmer pill row */}
-              <div className="mt-12 pt-7 border-t border-ink-100">
-                <p className="eyebrow mb-3">{t('home.trustStrip')}</p>
-                <div className="flex flex-wrap gap-1.5">
-                  {COUNTRIES.map(c => (
-                    <span key={c.code} className="flex items-center gap-1.5 bg-white border border-ink-200 px-2.5 py-1.5 rounded-lg text-xs font-medium text-ink-700">
-                      <img
-                        src={`https://flagcdn.com/w40/${c.code.toLowerCase()}.png`}
-                        alt=""
-                        className="w-4 h-3 object-cover rounded-sm"
-                        loading="lazy"
-                      />
-                      {getCountryName(t, c)}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
+          <div className="mt-10 flex flex-wrap gap-3 justify-center">
+            <Link to="/register" className="btn-primary text-base px-7 py-3.5">
+              {t('home.ctaApply')}
+              <svg className="w-4 h-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </Link>
+            <Link to="/universities" className="btn-secondary text-base px-7 py-3.5">
+              {t('home.ctaExplore')}
+            </Link>
+          </div>
 
-            {/* Right — student carousel card. Softer, no harsh shadow, no orange badge. */}
-            <div className="relative lg:col-span-5">
-              <div className="relative bg-white rounded-3xl border border-ink-100 p-7 shadow-soft">
-                <div key={currentUser.name} className="flex items-center gap-3 mb-6 animate-[fadeIn_0.4s_ease-out]">
-                  <div className={`w-11 h-11 rounded-2xl bg-gradient-to-br ${currentUser.gradient} flex items-center justify-center text-white text-base font-bold transition-colors duration-300`}>
-                    {currentUser.initial}
-                  </div>
-                  <div className="min-w-0">
-                    <p className="font-semibold text-ink-900 truncate">{currentUser.name}</p>
-                    <p className="text-[11px] text-ink-500">{t('dashboard.student')}</p>
-                  </div>
-                  <span className="ml-auto inline-flex items-center gap-1 text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> {t('home.feed.live')}
+          {/* country flags row — centered, minimal */}
+          <div className="mt-14">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-500 mb-4">
+              {t('home.trustStrip')}
+            </p>
+            <div className="flex flex-wrap justify-center items-center gap-x-7 gap-y-3">
+              {COUNTRIES.map(c => (
+                <div key={c.code} className="flex items-center gap-2 group">
+                  <img
+                    src={`https://flagcdn.com/w40/${c.code.toLowerCase()}.png`}
+                    alt=""
+                    className="w-5 h-3.5 object-cover rounded-sm shadow-sm"
+                    loading="lazy"
+                  />
+                  <span className="text-xs font-medium text-ink-700 group-hover:text-ink-900 transition">
+                    {getCountryName(t, c)}
                   </span>
                 </div>
-
-                <div key={'items-' + currentUser.name} className="space-y-2.5 animate-[fadeIn_0.4s_ease-out]">
-                  {currentUser.items.map((item, i) => (
-                    <div key={i} className="flex items-center justify-between p-3 bg-ink-50 rounded-xl border border-ink-100/60">
-                      <span className="text-sm font-medium text-ink-800 truncate pr-2">{item.name}</span>
-                      <span className={`text-[10px] px-2 py-0.5 rounded-full font-semibold whitespace-nowrap ${item.cls}`}>
-                        {t(`student.status.${item.statusKey}`)}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-
-                {/* carousel dots — slimmer */}
-                <div className="mt-5 flex items-center justify-center gap-1.5">
-                  {carouselUsers.map((_, i) => (
-                    <button
-                      key={i}
-                      type="button"
-                      onClick={() => setCarouselIdx(i)}
-                      aria-label={`Slide ${i + 1}`}
-                      className={`h-1 rounded-full transition-all ${i === carouselIdx ? 'w-5 bg-brand-600' : 'w-1 bg-ink-300 hover:bg-ink-500'}`}
-                    />
-                  ))}
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* ACTIVITY FEED — the signature live stream */}
-      <ActivityFeed />
+      {/* =====================================================
+         UNIVERSITY MARQUEE — Stripe-customer-row style.
+         Infinite horizontal scroll of all universities.
+         ===================================================== */}
+      <section className="relative py-12 lg:py-16 border-y border-ink-100 bg-ink-50/40 overflow-hidden">
+        <p className="text-center text-[11px] font-semibold uppercase tracking-[0.2em] text-ink-500 mb-8">
+          {t('home.marquee.eyebrow')}
+        </p>
 
-      {/* STATS — uniform brand tone instead of the rainbow palette. Calmer, more cohesive. */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-4 relative">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5">
-          <StatCard value={universities} label={t('home.stats.universities')} accent="from-brand-600 to-brand-800"
-            icon={<svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 14l9-5-9-5-9 5 9 5z" /><path strokeLinecap="round" strokeLinejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" /></svg>} />
-          <StatCard value={faculties} label={t('home.stats.faculties')} accent="from-brand-600 to-brand-800"
-            icon={<svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>} />
-          <StatCard value={applications} label={t('home.stats.applications')} accent="from-brand-600 to-brand-800"
-            icon={<svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" /></svg>} />
-          <StatCard value={accepted} label={t('home.stats.accepted')} accent="from-accent-500 to-accent-700"
-            icon={<svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>} />
-        </div>
-      </section>
+        <div className="relative">
+          {/* edge fades to make the loop feel infinite */}
+          <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-ink-50 to-transparent z-10" />
+          <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-ink-50 to-transparent z-10" />
 
-      {/* PROCESS — flat, monochromatic numbers on the brand. Less circus, more focus. */}
-      <section className="bg-ink-50/40 border-y border-ink-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-24">
-          <div className="max-w-2xl mb-12">
-            <p className="eyebrow">{t('home.process.eyebrow')}</p>
-            <h2 className="mt-3 font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-ink-900 leading-[1.05] tracking-tight">
-              {t('home.process.title')}
-            </h2>
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 relative">
-            <div className="hidden lg:block absolute top-7 left-[10%] right-[10%] h-px bg-ink-200 -z-0" />
-            {[1, 2, 3, 4].map((n) => (
-              <div key={n} className="card p-6 relative z-10 hover:shadow-lift transition-shadow">
-                <div className="w-14 h-14 rounded-2xl bg-white border border-brand-200 text-brand-700 flex items-center justify-center font-display font-bold text-xl mb-5 shadow-soft">
-                  {String(n).padStart(2, '0')}
+          {/* the scrolling row */}
+          <div className="flex animate-marquee" style={{ width: 'max-content' }}>
+            {[...UNIVERSITIES, ...UNIVERSITIES].map((u, i) => (
+              <div key={`${u.id}-${i}`} className="flex items-center gap-3 px-7 py-3 flex-shrink-0">
+                <img
+                  src={`https://flagcdn.com/w40/${u.countryCode.toLowerCase()}.png`}
+                  alt=""
+                  className="w-7 h-5 object-cover rounded-sm shadow-sm"
+                  loading="lazy"
+                />
+                <div className="leading-tight">
+                  <p className="font-display font-bold text-ink-900 text-base whitespace-nowrap">
+                    {getUniversityName(t, u)}
+                  </p>
+                  <p className="text-[11px] text-ink-500 whitespace-nowrap">
+                    {getCityName(t, u.city)}
+                  </p>
                 </div>
-                <h3 className="font-display font-bold text-ink-900 text-lg">{t(`home.process.step${n}.title`)}</h3>
-                <p className="text-sm text-ink-700 mt-1.5 leading-relaxed">{t(`home.process.step${n}.desc`)}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* FEATURES — uniform brand cards with single-tone icons. Quieter, more confident. */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
-        <div className="max-w-2xl mb-12">
-          <p className="eyebrow">{t('home.features.eyebrow')}</p>
-          <h2 className="mt-3 font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-ink-900 leading-[1.05] tracking-tight">
-            {t('home.features.title')}
-          </h2>
-          <p className="mt-4 text-base lg:text-lg text-ink-700 leading-relaxed">{t('home.features.subtitle')}</p>
-        </div>
-
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          <FeatureCard title={t('home.features.multiUniversity.title')} desc={t('home.features.multiUniversity.desc')} icon={<svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>} />
-          <FeatureCard title={t('home.features.online.title')}          desc={t('home.features.online.desc')}          icon={<svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>} />
-          <FeatureCard title={t('home.features.tracking.title')}        desc={t('home.features.tracking.desc')}        icon={<svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>} />
-          <FeatureCard title={t('home.features.support.title')}         desc={t('home.features.support.desc')}         icon={<svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>} />
+      {/* =====================================================
+         INLINE STATS BAR — big numbers, thin separators.
+         No cards, no shadows, just raw confidence.
+         ===================================================== */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-24">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-y-10 lg:divide-x lg:divide-ink-200">
+          <StatBar value={universities} label={t('home.stats.universities')} />
+          <StatBar value={faculties}    label={t('home.stats.faculties')} />
+          <StatBar value={applications} label={t('home.stats.applications')} />
+          <StatBar value={accepted}     label={t('home.stats.accepted')} accent />
         </div>
       </section>
 
-      {/* CTA — solid deep brand, no rainbow gradient. Clean and authoritative. */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-24">
-        <div className="rounded-3xl bg-ink-900 px-6 py-14 sm:px-16 sm:py-20 relative overflow-hidden">
-          {/* a single, very subtle brand-tinted radial glow */}
-          <div className="absolute inset-0 -z-0 opacity-30 pointer-events-none">
-            <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[640px] h-[640px] rounded-full bg-brand-500 blur-3xl" />
+      {/* =====================================================
+         FEATURES — BENTO GRID. 1 large + 3 small.
+         Asymmetric, more interesting than 4 equal columns.
+         ===================================================== */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 lg:pb-28">
+        <div className="max-w-2xl mb-14">
+          <p className="eyebrow">{t('home.features.eyebrow')}</p>
+          <h2 className="mt-3 font-display text-3xl sm:text-5xl font-bold text-ink-900 leading-[1.02] tracking-tight">
+            {t('home.features.title')}
+          </h2>
+          <p className="mt-4 text-base lg:text-lg text-ink-600 leading-relaxed">{t('home.features.subtitle')}</p>
+        </div>
+
+        <div className="grid lg:grid-cols-12 gap-4 lg:gap-5">
+          {/* Big hero card — multi-university (the headline feature). Spans 7 cols on lg. */}
+          <article className="lg:col-span-7 lg:row-span-2 relative overflow-hidden rounded-3xl bg-ink-900 p-8 lg:p-10 text-white min-h-[320px] flex flex-col justify-between">
+            <div className="absolute inset-0 opacity-20 pointer-events-none">
+              <div className="absolute -top-32 -right-32 w-[400px] h-[400px] rounded-full bg-brand-500 blur-3xl" />
+            </div>
+            <div className="relative">
+              <div className="w-12 h-12 rounded-2xl bg-white/10 backdrop-blur border border-white/15 flex items-center justify-center mb-6">
+                <svg className="w-6 h-6 text-brand-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                </svg>
+              </div>
+              <h3 className="font-display text-2xl lg:text-3xl font-bold leading-tight">{t('home.features.multiUniversity.title')}</h3>
+              <p className="mt-4 text-base text-ink-300 leading-relaxed max-w-md">{t('home.features.multiUniversity.desc')}</p>
+            </div>
+            <div className="relative mt-8 flex items-center gap-2">
+              {[1,2,3,4,5].map(n => (
+                <div key={n} className="w-9 h-9 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center text-xs font-bold font-display">
+                  {n}
+                </div>
+              ))}
+              <span className="ml-2 text-xs text-ink-400">{t('home.features.multiUniversity.simul')}</span>
+            </div>
+          </article>
+
+          {/* Top-right card */}
+          <BentoCard
+            colSpan={5}
+            title={t('home.features.online.title')}
+            desc={t('home.features.online.desc')}
+            icon={<svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>}
+          />
+
+          {/* Bottom-right pair — split into 2 narrower cards */}
+          <BentoCard
+            colSpan={5}
+            title={t('home.features.tracking.title')}
+            desc={t('home.features.tracking.desc')}
+            icon={<svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>}
+          />
+
+          {/* Full-width row below — WhatsApp support */}
+          <BentoCard
+            colSpan={12}
+            title={t('home.features.support.title')}
+            desc={t('home.features.support.desc')}
+            icon={<svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>}
+            horizontal
+          />
+        </div>
+      </section>
+
+      {/* =====================================================
+         ACTIVITY FEED — signature live stream
+         ===================================================== */}
+      <ActivityFeed />
+
+      {/* =====================================================
+         PROCESS — vertical timeline with connecting line.
+         Different rhythm from the 4-column grid.
+         ===================================================== */}
+      <section className="bg-ink-900 text-white relative overflow-hidden">
+        <div className="absolute inset-0 opacity-20 pointer-events-none">
+          <div className="absolute -bottom-32 left-1/3 w-[500px] h-[500px] rounded-full bg-brand-600 blur-3xl" />
+        </div>
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 relative">
+          <div className="max-w-2xl mx-auto text-center mb-16">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-300">{t('home.process.eyebrow')}</p>
+            <h2 className="mt-3 font-display text-3xl sm:text-5xl font-bold text-white leading-[1.02] tracking-tight">
+              {t('home.process.title')}
+            </h2>
           </div>
-          <div className="relative text-center">
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight max-w-3xl mx-auto leading-[1.1] text-white">
+
+          <ol className="relative space-y-10 lg:space-y-14">
+            {/* the connecting vertical line */}
+            <div className="absolute left-7 lg:left-9 top-2 bottom-2 w-px bg-white/15" />
+
+            {[1, 2, 3, 4].map(n => (
+              <li key={n} className="relative pl-20 lg:pl-24">
+                {/* numbered node on the line */}
+                <div className="absolute left-0 top-0 w-14 lg:w-[72px] h-14 lg:h-[72px] rounded-2xl bg-white text-ink-900 flex items-center justify-center font-display font-bold text-xl shadow-lift">
+                  {String(n).padStart(2, '0')}
+                </div>
+                <h3 className="font-display text-xl lg:text-2xl font-bold pt-2">{t(`home.process.step${n}.title`)}</h3>
+                <p className="mt-2 text-base text-ink-300 leading-relaxed max-w-xl">{t(`home.process.step${n}.desc`)}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      {/* =====================================================
+         TESTIMONIAL — single oversized pull-quote.
+         A different visual rhythm than cards.
+         ===================================================== */}
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
+        <figure className="relative">
+          <svg className="absolute -top-4 -left-2 w-16 h-16 text-brand-100" viewBox="0 0 32 32" fill="currentColor">
+            <path d="M9.4 8C5.3 8 2 11.3 2 15.4v1.4C2 22 6.5 27 12.4 27v-3.6c-3.4 0-5.4-2.3-5.6-5h2.6V12.6L9.4 8zm15.4 0c-4.1 0-7.4 3.3-7.4 7.4v1.4c0 5.2 4.5 10.2 10.4 10.2v-3.6c-3.4 0-5.4-2.3-5.6-5h2.6V12.6L24.8 8z" />
+          </svg>
+          <blockquote className="relative">
+            <p className="font-display text-2xl sm:text-4xl lg:text-5xl font-bold text-ink-900 leading-[1.12] tracking-tight">
+              {t('home.testimonial.quote')}
+            </p>
+          </blockquote>
+          <figcaption className="mt-10 flex items-center gap-4">
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-500 to-brand-700 text-white flex items-center justify-center font-display font-bold text-xl">
+              A
+            </div>
+            <div>
+              <p className="font-display font-bold text-ink-900 text-lg">Aysel A.</p>
+              <p className="text-sm text-ink-500 flex items-center gap-1.5">
+                <img src="https://flagcdn.com/w40/tr.png" alt="" className="w-4 h-3 object-cover rounded-sm" />
+                {t('home.testimonial.role')}
+              </p>
+            </div>
+          </figcaption>
+        </figure>
+      </section>
+
+      {/* =====================================================
+         CTA — dark with a bright brand glow. Confident close.
+         ===================================================== */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 lg:pb-24">
+        <div className="rounded-3xl bg-ink-900 px-6 py-16 sm:px-16 sm:py-24 relative overflow-hidden">
+          <div className="absolute inset-0 -z-0 opacity-40 pointer-events-none">
+            <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[800px] h-[800px] rounded-full bg-brand-500 blur-3xl" />
+          </div>
+          <div className="relative text-center max-w-3xl mx-auto">
+            <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.04] text-white">
               {t('home.cta.title')}
             </h2>
-            <p className="mt-5 text-base lg:text-lg text-ink-300 max-w-xl mx-auto leading-relaxed">{t('home.cta.desc')}</p>
-            <div className="mt-9 flex flex-wrap gap-3 justify-center">
-              <Link to="/register" className="inline-flex items-center px-7 py-3.5 rounded-xl bg-white text-ink-900 font-semibold hover:bg-ink-100 transition shadow-lg">
+            <p className="mt-6 text-lg text-ink-300 max-w-xl mx-auto leading-relaxed">{t('home.cta.desc')}</p>
+            <div className="mt-10 flex flex-wrap gap-3 justify-center">
+              <Link to="/register" className="inline-flex items-center px-8 py-4 rounded-xl bg-white text-ink-900 font-semibold hover:bg-ink-100 transition shadow-lift">
                 {t('home.ctaApply')}
                 <svg className="w-4 h-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
               </Link>
-              <Link to="/universities" className="inline-flex items-center px-7 py-3.5 rounded-xl bg-white/5 backdrop-blur border border-white/15 text-white font-semibold hover:bg-white/10 transition">
+              <Link to="/universities" className="inline-flex items-center px-8 py-4 rounded-xl bg-white/5 backdrop-blur border border-white/15 text-white font-semibold hover:bg-white/10 transition">
                 {t('home.ctaExplore')}
               </Link>
             </div>
@@ -706,18 +746,63 @@ function GuestHome() {
   );
 }
 
-/* Feature card — uniform brand tone, monochromatic. Hover lifts gently. */
-function FeatureCard({ title, desc, icon }: {
-  title: string; desc: string; icon: React.ReactNode;
+/* ====================================================
+   Sub-components for the new layout
+   ==================================================== */
+
+/* Inline stat — big number, thin separator. No card. */
+function StatBar({ value, label, accent }: { value: number; label: string; accent?: boolean }) {
+  const [display, setDisplay] = useState(0);
+  const ref = useRef<HTMLDivElement>(null);
+  const animated = useRef(false);
+  useEffect(() => {
+    const el = ref.current; if (!el) return;
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting && !animated.current) {
+          animated.current = true;
+          const start = performance.now(); const duration = 1400;
+          function tick(now: number) {
+            const t = Math.min(1, (now - start) / duration);
+            const eased = 1 - Math.pow(1 - t, 3);
+            setDisplay(Math.floor(value * eased));
+            if (t < 1) requestAnimationFrame(tick); else setDisplay(value);
+          }
+          requestAnimationFrame(tick);
+        }
+      });
+    }, { threshold: 0.3 });
+    io.observe(el); return () => io.disconnect();
+  }, [value]);
+
+  return (
+    <div ref={ref} className="px-4 lg:px-8 text-center">
+      <p className={`font-display text-4xl sm:text-5xl lg:text-6xl font-bold tabular-nums leading-none ${accent ? 'text-brand-700' : 'text-ink-900'}`}>
+        {display.toLocaleString()}
+        {accent && <span className="text-accent-500">+</span>}
+      </p>
+      <p className="mt-3 text-xs lg:text-sm font-medium text-ink-500 uppercase tracking-[0.1em]">{label}</p>
+    </div>
+  );
+}
+
+/* Bento card — uses inline gridColumn instead of dynamic lg:col-span-* so Tailwind JIT doesn't choke. */
+function BentoCard({ title, desc, icon, colSpan, horizontal }: {
+  title: string; desc: string; icon: React.ReactNode; colSpan: number; horizontal?: boolean;
 }) {
   return (
-    <div className="card p-6 hover:shadow-lift hover:-translate-y-0.5 transition-all duration-300">
-      <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-5 bg-brand-50 text-brand-700 border border-brand-100">
+    <article
+      style={{ gridColumn: `span ${colSpan} / span ${colSpan}` }}
+      className={`card hover:shadow-lift hover:-translate-y-0.5 transition-all duration-300 ${horizontal ? 'p-7 lg:p-8 lg:flex lg:items-start lg:gap-7' : 'p-7'}`}
+    >
+      <div className={`w-11 h-11 rounded-2xl flex items-center justify-center bg-brand-50 text-brand-700 border border-brand-100 ${horizontal ? 'flex-shrink-0' : 'mb-5'}`}>
         {icon}
       </div>
-      <h3 className="font-display font-bold text-ink-900 text-base mb-1.5">{title}</h3>
-      <p className="text-sm text-ink-600 leading-relaxed">{desc}</p>
-    </div>
+      <div className={horizontal ? 'mt-4 lg:mt-0' : ''}>
+        <h3 className="font-display font-bold text-ink-900 text-lg leading-tight">{title}</h3>
+        <p className="mt-2 text-sm text-ink-600 leading-relaxed">{desc}</p>
+      </div>
+    </article>
   );
 }
 
