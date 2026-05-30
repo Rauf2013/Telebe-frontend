@@ -9,17 +9,23 @@
     -moz-osx-font-smoothing: grayscale;
   }
   body {
-    @apply bg-slate-50 text-slate-700;
+    /* Slightly warmer than pure white. Reduces eye strain over long sessions. */
+    @apply bg-[#fafafa] text-ink-700;
     margin: 0;
   }
   h1, h2, h3, h4 {
-    font-family: 'Plus Jakarta Sans', Inter, system-ui, sans-serif;
-    letter-spacing: -0.02em;
+    font-family: 'Inter Tight', Inter, system-ui, sans-serif;
+    letter-spacing: -0.022em;
+    @apply text-ink-900;
   }
   #root {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+  }
+  /* Smooth, refined focus rings everywhere */
+  *:focus-visible {
+    outline: none;
   }
 }
 
@@ -31,7 +37,8 @@
 @layer components {
   .btn {
     @apply inline-flex items-center justify-center px-5 py-2.5 rounded-xl font-semibold
-           transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2;
+           transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2
+           focus:ring-offset-white;
   }
   .btn-primary {
     @apply btn bg-brand-600 text-white hover:bg-brand-700 shadow-sm hover:shadow-md
@@ -42,24 +49,39 @@
            focus:ring-accent-500 active:scale-[0.98];
   }
   .btn-secondary {
-    @apply btn bg-white text-brand-700 border border-slate-200 hover:border-brand-300 hover:bg-brand-50
+    /* Refined: subtle border + soft hover lift. */
+    @apply btn bg-white text-ink-800 border border-ink-200 hover:border-brand-400 hover:text-brand-700
            focus:ring-brand-500;
   }
   .btn-ghost {
-    @apply btn text-slate-700 hover:bg-slate-100;
+    @apply btn text-ink-700 hover:bg-ink-100;
   }
   .input {
-    @apply block w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-slate-900 placeholder-slate-400
+    @apply block w-full rounded-xl border border-ink-200 bg-white px-3.5 py-2.5 text-ink-900 placeholder-ink-300
            focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100
            transition;
   }
   .label {
-    @apply block text-sm font-medium text-slate-700 mb-1.5;
+    @apply block text-sm font-medium text-ink-700 mb-1.5;
   }
+  /* Card — softer shadow, no harsh border. The lift comes from the new `shadow-soft`. */
   .card {
-    @apply bg-white rounded-2xl shadow-sm border border-slate-100;
+    @apply bg-white rounded-2xl border border-ink-100;
+    box-shadow: 0 2px 12px -2px rgba(15, 23, 42, 0.05), 0 1px 4px -1px rgba(15, 23, 42, 0.03);
   }
   .gradient-text {
-    @apply bg-gradient-to-r from-brand-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-brand-700 via-brand-500 to-brand-700 bg-clip-text text-transparent;
   }
+  /* Eyebrow — small uppercase label above headings. */
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.14em] text-brand-700;
+  }
+}
+
+/* Activity feed — vertical infinite scroll. Pauses on hover so users can read. */
+.feed-track {
+  animation: feedScroll 28s linear infinite;
+}
+.feed-pause:hover .feed-track {
+  animation-play-state: paused;
 }

@@ -20,32 +20,30 @@ export default function Navbar() {
   ];
 
   return (
-    <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200/80">
+    <header className="sticky top-0 z-40 bg-white/85 backdrop-blur-md border-b border-ink-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* logo */}
+          {/* logo — flat single-tone, no harsh gradient */}
           <Link to="/" className="flex items-center gap-2.5 group">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 via-indigo-600 to-purple-700 flex items-center justify-center shadow-md group-hover:scale-105 transition">
-              <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+            <div className="w-9 h-9 rounded-xl bg-ink-900 flex items-center justify-center group-hover:bg-brand-700 transition-colors">
+              <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 14l9-5-9-5-9 5 9 5z" />
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
               </svg>
             </div>
-            <div className="leading-tight">
-              <span className="font-extrabold text-slate-900 text-lg tracking-tight" style={{ fontFamily: '"Plus Jakarta Sans", sans-serif' }}>EduGate</span>
-            </div>
+            <span className="font-display font-bold text-ink-900 text-[17px] tracking-tight">EduGate</span>
           </Link>
 
-          {/* desktop nav */}
-          <nav className="hidden md:flex items-center gap-1">
+          {/* desktop nav — quieter, refined active state */}
+          <nav className="hidden md:flex items-center gap-0.5">
             {links.map((l) => (
               <NavLink
                 key={l.to}
                 to={l.to}
                 end={l.to === '/'}
                 className={({ isActive }) =>
-                  `px-3 py-2 rounded-lg text-sm font-medium transition ${
-                    isActive ? 'text-brand-700 bg-brand-50' : 'text-slate-700 hover:bg-slate-100'
+                  `px-3.5 py-2 rounded-lg text-sm font-medium transition ${
+                    isActive ? 'text-ink-900' : 'text-ink-500 hover:text-ink-900'
                   }`
                 }
               >

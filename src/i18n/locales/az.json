@@ -95,7 +95,32 @@
     "tipsTitle": "Faydalı məsləhət",
     "tipStudent": "Sənədləri vaxtında yükləməyi unutmayın. Tərcümə təxminən 2-3 iş günü çəkir.",
     "tipModerator": "Yeni müraciət olduqda sizə bildirim gəlir. Sənədləri yoxlayıb tərcüməni yükləyin.",
-    "tipUniversity": "Hər müraciət üçün təhsil haqqı və şərtləri qeyd qutusunda yaza bilərsiniz."
+    "tipUniversity": "Hər müraciət üçün təhsil haqqı və şərtləri qeyd qutusunda yaza bilərsiniz.",
+    "feed": {
+      "eyebrow": "CANLI · İndi platformada baş verir",
+      "live": "Canlı",
+      "lastDay": "Son 24 saat",
+      "title": "Saytda hər saat onlarla müraciət hərəkət edir",
+      "subtitle": "Sənin də biri olacağın bir cərəyandır — hər gün yeni qəbul, yeni sənəd, yeni başlanğıc.",
+      "statSuccess": "Qəbul faizi",
+      "statCountries": "Ölkə",
+      "statSupport": "Dəstək",
+      "minAgo": "{{n}} dəq əvvəl",
+      "action": {
+        "accepted":   "qəbul oldu",
+        "submitted":  "müraciəti göndərdi",
+        "translated": "sənədi tərcümədən gəldi",
+        "paid":       "ödənişi tamamladı",
+        "started":    "qeydiyyatdan keçdi"
+      },
+      "tag": {
+        "accepted":   "Qəbul",
+        "submitted":  "Göndərildi",
+        "translated": "Tərcümə",
+        "paid":       "Ödəniş",
+        "started":    "Yeni"
+      }
+    }
   },
   "footer": {
     "rights": "Bütün hüquqlar qorunur",

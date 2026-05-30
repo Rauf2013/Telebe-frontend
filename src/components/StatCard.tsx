@@ -41,16 +41,16 @@ export default function StatCard({ value, label, icon, accent = 'from-brand-500 
   }, [value]);
 
   return (
-    <div ref={ref} className="card p-6 hover:shadow-md transition-shadow">
+    <div ref={ref} className="card p-6 hover:shadow-lift transition-shadow">
       <div className="flex items-start justify-between mb-3">
-        <div className={`w-11 h-11 rounded-lg bg-gradient-to-br ${accent} flex items-center justify-center text-white`}>
+        <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${accent} flex items-center justify-center text-white shadow-sm`}>
           {icon}
         </div>
       </div>
-      <p className="text-3xl font-bold text-slate-900 tabular-nums">
+      <p className="font-display text-3xl font-bold text-ink-900 tabular-nums leading-none">
         {display.toLocaleString()}
       </p>
-      <p className="text-sm font-medium text-slate-500 mt-1">{label}</p>
+      <p className="text-sm font-medium text-ink-500 mt-2">{label}</p>
     </div>
   );
 }
