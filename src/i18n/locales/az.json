@@ -345,6 +345,7 @@
     "noUniversity": "Hesabınızda universitet təyin edilməyib. Yenidən qeydiyyatdan keçin və universitet seçin."
   },
   "profile": {
+    "studentCode": "Tələbə kodu",
     "personalInfo": "Şəxsi məlumatlar",
     "personalInfoHint": "Profil məlumatlarınızı buradan yeniləyə bilərsiniz",
     "changePassword": "Şifrəni dəyişdir",
@@ -425,6 +426,31 @@
     "title": "Bildirimlər",
     "markAllRead": "Hamısını oxundu işarələ",
     "empty": "Hələ heç bir bildirim yoxdur"
+  },
+  "chat": {
+    "title": "Universitet ilə yazışma",
+    "counterpart": "Universitet təmsilçisi",
+    "youAreStudent": "Sən tələbə kimi yazırsan",
+    "youAreUniversity": "Sən universitet təmsilçisi kimi yazırsan",
+    "placeholder": "Mesajınızı yazın...",
+    "send": "Göndər",
+    "empty": "Hələ mesaj yoxdur. Söhbəti başlat!",
+    "lockedTitle": "Yazışma hələ açılmayıb",
+    "lockedDesc": "Yazışma yalnız qəbul təsdiqləndikdən və ikinci ödəniş tamamlandıqdan sonra aktiv olur."
+  },
+  "reapply": {
+    "title": "Müraciəti yenilə",
+    "desc": "Universitetlərdən gələn cavablar sizi qane etmirsə, moderatordan sənədlərinizi başqa universitetlərə göndərməsini istəyə bilərsiniz.",
+    "openButton": "Yenidən müraciət et",
+    "sameLanguageTitle": "Eyni dilli universitetlər",
+    "sameLanguageDesc": "Ödənişsiz davam. Moderator sənədlərinizi eyni dilli digər universitetlərə göndərir.",
+    "countryChangeTitle": "Ölkə/dil dəyişəcək",
+    "countryChangeDesc": "Yeni tərcümə ödənişi tələb olunur. Sənədlər yenidən tərcümə edilib göndəriləcək.",
+    "reasonLabel": "Səbəb (ixtiyari)",
+    "reasonPlaceholder": "Niyə yenidən müraciət etmək istəyirsiniz?",
+    "submit": "Müraciəti göndər",
+    "sentTitle": "Müraciət qeydə alındı",
+    "sentDesc": "Moderator sorğunuzu nəzərdən keçirəcək və sənədləri uyğun universitetlərə göndərəcək."
   },
   "time": {
     "now": "indicə",

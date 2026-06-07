@@ -10,8 +10,20 @@ export interface User {
   country?: string;
   city?: string;
   universityId?: string;
+  /** Per-spec unique applicant code, e.g. AZ012-300526 (only for students). */
+  studentCode?: string;
   emailVerified?: boolean;
   phoneVerified?: boolean;
+  createdAt: string;
+}
+
+export interface ChatMessage {
+  id: string;
+  applicationId: string;
+  senderId: string;
+  recipientId: string;
+  content: string;
+  readAt?: string;
   createdAt: string;
 }
 

@@ -173,6 +173,11 @@ function PersonalHero({ user, myApp, apps, dashUrl }: {
                 <div className="flex-1 min-w-0">
                   <p className="font-bold text-white truncate">{user.fullName}</p>
                   <p className="text-xs text-brand-100 truncate">{user.email}</p>
+                  {user.role === 'student' && user.studentCode && (
+                    <p className="text-[10px] font-mono font-bold text-white/90 tabular-nums mt-1">
+                      ID: {user.studentCode}
+                    </p>
+                  )}
                 </div>
               </div>
 

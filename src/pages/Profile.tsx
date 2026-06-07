@@ -71,9 +71,19 @@ export default function Profile() {
           <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-500 to-indigo-700 flex items-center justify-center text-white text-2xl font-bold">
             {user.fullName.charAt(0).toUpperCase()}
           </div>
-          <div>
+          <div className="flex-1">
             <h1 className="text-2xl font-bold text-slate-900">{user.fullName}</h1>
             <p className="text-sm text-slate-500">{user.email} · {roleLabel}</p>
+            {user.role === 'student' && user.studentCode && (
+              <div className="mt-3 inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-brand-50 border border-brand-100">
+                <span className="text-[10px] font-semibold uppercase tracking-wider text-brand-600">
+                  {t('profile.studentCode')}
+                </span>
+                <span className="font-mono font-bold text-brand-700 text-sm tabular-nums">
+                  {user.studentCode}
+                </span>
+              </div>
+            )}
           </div>
         </div>
       </div>

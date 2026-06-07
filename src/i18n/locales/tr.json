@@ -289,6 +289,7 @@
     "noUniversity": "Hesabınızda üniversite tanımlı değil. Tekrar kayıt olun ve üniversite seçin."
   },
   "profile": {
+    "studentCode": "Öğrenci kodu",
     "personalInfo": "Kişisel bilgiler",
     "personalInfoHint": "Profil bilgilerinizi buradan güncelleyebilirsiniz",
     "changePassword": "Şifreyi değiştir",
@@ -369,6 +370,31 @@
     "title": "Bildirimler",
     "markAllRead": "Hepsini okundu işaretle",
     "empty": "Henüz hiçbir bildirim yok"
+  },
+  "chat": {
+    "title": "Üniversite ile yazışma",
+    "counterpart": "Üniversite temsilcisi",
+    "youAreStudent": "Öğrenci olarak yazıyorsun",
+    "youAreUniversity": "Üniversite temsilcisi olarak yazıyorsun",
+    "placeholder": "Mesajınızı yazın...",
+    "send": "Gönder",
+    "empty": "Henüz mesaj yok. Sohbeti başlat!",
+    "lockedTitle": "Yazışma henüz açık değil",
+    "lockedDesc": "Yazışma yalnızca kabul onaylandıktan ve ikinci ödeme tamamlandıktan sonra aktif olur."
+  },
+  "reapply": {
+    "title": "Başvuruyu yenile",
+    "desc": "Üniversitelerden gelen cevaplar sizi tatmin etmiyorsa, moderatörden belgelerinizi başka üniversitelere göndermesini isteyebilirsiniz.",
+    "openButton": "Yeniden başvur",
+    "sameLanguageTitle": "Aynı dilli üniversiteler",
+    "sameLanguageDesc": "Ödemesiz devam. Moderatör belgelerinizi aynı dilli diğer üniversitelere gönderir.",
+    "countryChangeTitle": "Ülke/dil değişecek",
+    "countryChangeDesc": "Yeni çeviri ödemesi gerekir. Belgeler yeniden çevrilip gönderilecek.",
+    "reasonLabel": "Sebep (isteğe bağlı)",
+    "reasonPlaceholder": "Neden yeniden başvurmak istiyorsunuz?",
+    "submit": "Başvuruyu gönder",
+    "sentTitle": "Başvuru kayda alındı",
+    "sentDesc": "Moderatör talebinizi değerlendirecek ve belgeleri uygun üniversitelere gönderecek."
   },
   "time": {
     "now": "şimdi",

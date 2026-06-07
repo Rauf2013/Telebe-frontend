@@ -6,7 +6,9 @@ import { COUNTRIES, UNIVERSITIES, findFaculty, findUniversity, getFacultyName, g
 import DashboardHeader from '../../components/DashboardHeader';
 import ApplicationTimeline from '../../components/ApplicationTimeline';
 import CardPaymentForm from '../../components/CardPaymentForm';
-import type { FacultyChoice } from '../../types';
+import ChatPanel from '../../components/ChatPanel';
+import { api } from '../../api/client';
+import type { Application, FacultyChoice } from '../../types';
 
 type Tab = 'choices' | 'documents' | 'payment' | 'tracking';
 
@@ -374,6 +376,12 @@ function TrackingTab() {
     return <div className="card p-6 text-sm text-slate-500">{t('student.noChoices')}</div>;
   }
 
+  const approvedChoice = app.choices.find(c => c.status === 'approved');
+  const chatUnlocked   = !!approvedChoice && app.secondPaymentPaid;
+  const allRejected    = app.choices.length > 0
+    && app.choices.every(c => c.status === 'rejected' || c.status === 'approved');
+  const hasAnyRejected = app.choices.some(c => c.status === 'rejected');
+
   return (
     <div className="space-y-3">
       <h2 className="text-lg font-semibold text-slate-900">{t('student.trackingTitle')}</h2>
@@ -410,7 +418,122 @@ function TrackingTab() {
           </div>
         );
       })}
+
+      {chatUnlocked && (
+        <div className="mt-6">
+          <h2 className="text-lg font-semibold text-slate-900 mb-3">{t('chat.title')}</h2>
+          <ChatPanel
+            applicationId={app.id}
+            otherPartyName={getUniversityName(t, findUniversity(approvedChoice.universityId))}
+          />
+        </div>
+      )}
+
+      {(hasAnyRejected || allRejected) && !chatUnlocked && (
+        <ReapplyCard appId={app.id} />
+      )}
+
       <ApplicationTimeline applicationId={app.id} />
+    </div>
+  );
+}
+
+/* ---------------- Reapply card ----------------
+   Per spec: if the student isn't satisfied with admission results, they can
+   ask the moderator to send their docs to other universities. Same language
+   = no extra payment. Different country = a new translation fee.
+------------------------------------------------ */
+function ReapplyCard({ appId }: { appId: string }) {
+  const { t } = useTranslation();
+  const refresh = useAppStore(s => s.loadMine);
+  const [open, setOpen] = useState(false);
+  const [sameLanguage, setSameLanguage] = useState(true);
+  const [reason, setReason] = useState('');
+  const [sending, setSending] = useState(false);
+  const [done, setDone] = useState(false);
+
+  async function submit(e: React.FormEvent) {
+    e.preventDefault();
+    setSending(true);
+    try {
+      await api<{ application: Application }>(`/api/applications/${appId}/reapply`, {
+        body: { sameLanguage, reason },
+      });
+      setDone(true);
+      await refresh?.();
+    } finally {
+      setSending(false);
+    }
+  }
+
+  if (done) {
+    return (
+      <div className="card p-5 bg-emerald-50 border-emerald-200">
+        <div className="flex items-start gap-3">
+          <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center flex-shrink-0">
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <div>
+            <p className="font-semibold text-emerald-900">{t('reapply.sentTitle')}</p>
+            <p className="text-sm text-emerald-700 mt-1">{t('reapply.sentDesc')}</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="card p-5 border-amber-300">
+      <h3 className="font-bold text-slate-900 mb-1">{t('reapply.title')}</h3>
+      <p className="text-sm text-slate-500 mb-4">{t('reapply.desc')}</p>
+
+      {!open ? (
+        <button className="btn-secondary" onClick={() => setOpen(true)}>
+          {t('reapply.openButton')}
+        </button>
+      ) : (
+        <form onSubmit={submit} className="space-y-4">
+          <div className="space-y-2">
+            <label className="flex items-start gap-3 p-3 border-2 border-slate-200 rounded-xl cursor-pointer has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50">
+              <input type="radio" className="mt-1" checked={sameLanguage}
+                     onChange={() => setSameLanguage(true)} />
+              <div>
+                <p className="font-semibold text-slate-900">{t('reapply.sameLanguageTitle')}</p>
+                <p className="text-xs text-slate-600 mt-0.5">{t('reapply.sameLanguageDesc')}</p>
+              </div>
+            </label>
+            <label className="flex items-start gap-3 p-3 border-2 border-slate-200 rounded-xl cursor-pointer has-[:checked]:border-amber-500 has-[:checked]:bg-amber-50">
+              <input type="radio" className="mt-1" checked={!sameLanguage}
+                     onChange={() => setSameLanguage(false)} />
+              <div>
+                <p className="font-semibold text-slate-900">{t('reapply.countryChangeTitle')}</p>
+                <p className="text-xs text-slate-600 mt-0.5">{t('reapply.countryChangeDesc')}</p>
+              </div>
+            </label>
+          </div>
+
+          <div>
+            <label className="label">{t('reapply.reasonLabel')}</label>
+            <textarea
+              className="input min-h-[80px]"
+              placeholder={t('reapply.reasonPlaceholder')}
+              value={reason}
+              onChange={e => setReason(e.target.value)}
+            />
+          </div>
+
+          <div className="flex gap-2">
+            <button type="submit" className="btn-primary" disabled={sending}>
+              {sending ? t('common.saving') : t('reapply.submit')}
+            </button>
+            <button type="button" className="btn-secondary" onClick={() => setOpen(false)}>
+              {t('common.cancel')}
+            </button>
+          </div>
+        </form>
+      )}
     </div>
   );
 }

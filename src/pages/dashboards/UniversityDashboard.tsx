@@ -7,6 +7,7 @@ import { findFaculty, findUniversity, getFacultyName, getUniversityName, getCity
 import { fileUrl } from '../../api/client';
 import DashboardHeader from '../../components/DashboardHeader';
 import ApplicationTimeline from '../../components/ApplicationTimeline';
+import ChatPanel from '../../components/ChatPanel';
 import type { Application, FacultyChoice } from '../../types';
 
 interface PendingItem {
@@ -206,6 +207,13 @@ function DecisionPanel({ item, onSubmit }: {
           </div>
         )}
       </section>
+
+      {item.choice.status === 'approved' && item.app.secondPaymentPaid && (
+        <section>
+          <h3 className="font-semibold text-slate-900 mb-3">{t('chat.title')}</h3>
+          <ChatPanel applicationId={item.app.id} otherPartyName={student?.fullName} />
+        </section>
+      )}
 
       <ApplicationTimeline applicationId={item.app.id} />
     </div>
